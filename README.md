@@ -1,6 +1,5 @@
-<h1  style="text-align: center;">Pixel Chess</h1>
 
-<h1>Diary TO DO LIST: </h1>
+Diary TO DO LIST: 
 ## Thursday - 01.05.25
 [x] - make assets
 [x] - draw base board
