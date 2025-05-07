@@ -9,11 +9,12 @@
 
 
 ## Friday - 02.05.25
-- [] finish class Board
-- [] start making new class "Figures"
-- []  Display all figures on chess board
-- []  how to interact with figures
+- [x] finish class Board
+- [x] start making new class "Figures"
 
 
+## Thursday - 08.05.25
 
+- [] class "Figure"
+- [] try to display pawns
 
