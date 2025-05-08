@@ -10,8 +10,8 @@ enum class CellType
 class Board 
 {
     protected:
-        std::vector<sf::Sprite> c_cells;
-        sf::Sprite c_background_board;
+        std::vector<sf::Sprite> c_cells_s;
+        sf::Sprite c_background_board_s;
         sf::Texture c_light_cell_t;
         sf::Texture c_dark_cell_t;
         sf::Texture c_board_t;

@@ -2,7 +2,9 @@
 
 
 
-Board::Board(const std::string& BOARD_PATH, const std::string& LIGHT_CELL_PATH ,const std::string& DARK_CELL_PATH, const float CELL_SIZE, sf::Vector2f BOARD_SIZE,sf::Vector2u  window_size, bool user_figure_color)
+Board::Board(const std::string& BOARD_PATH, const std::string& LIGHT_CELL_PATH ,
+const std::string& DARK_CELL_PATH, const float CELL_SIZE, sf::Vector2f BOARD_SIZE,sf::Vector2u  window_size, bool user_figure_color)
+
 : c_cell_size(CELL_SIZE), c_user_figure_color(user_figure_color), c_window_size(window_size), c_board_size(BOARD_SIZE)
 {
     if (!c_board_t.loadFromFile(BOARD_PATH)) 
@@ -19,7 +21,7 @@ Board::Board(const std::string& BOARD_PATH, const std::string& LIGHT_CELL_PATH ,
 
 void Board::build_field_of_cells()
 {
-    c_cells.clear();
+    c_cells_s.clear();
     sf::Vector2f current_cell_pos = set_central_position();
     for (int rows = 0; rows < 8; rows++)
     {
@@ -33,7 +35,7 @@ void Board::build_field_of_cells()
             cell_sprite.setTexture((layout_board) ? c_light_cell_t : c_dark_cell_t);
             cell_sprite.setPosition(cols*c_cell_size + current_cell_pos.x + 30, rows*c_cell_size+current_cell_pos.y + 30);
 
-            c_cells.push_back(cell_sprite);   
+            c_cells_s.push_back(cell_sprite);   
         }
                 
     }
@@ -41,15 +43,15 @@ void Board::build_field_of_cells()
 
 void Board::display_background_board(sf::RenderWindow& window)
 {
-    c_background_board.setTexture(c_board_t);
-    c_background_board.setPosition(set_central_position());
-    window.draw(c_background_board);   
+    c_background_board_s.setTexture(c_board_t);
+    c_background_board_s.setPosition(set_central_position());
+    window.draw(c_background_board_s);   
 }
 
 
 void Board::draw_board(sf::RenderWindow& window)
 {
-    for(const auto& cell : c_cells)
+    for(const auto& cell : c_cells_s)
     {
         window.draw(cell);
     }                        

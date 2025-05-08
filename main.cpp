@@ -4,13 +4,14 @@
 #include "path_size.cpp"
 
 
+
 int main() 
 {
-    srand(time(NULL));
-    
+    srand(time(nullptr));
+
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Chess");
     sf::Vector2u window_size = window.getSize();
-    int rand_user_color = rand() % 2;
+    bool rand_user_color = rand() % 2;
 
     Board board(BOARD_TEXTURE_PATH,LIGHT_CELL_TEXTURE_PATH,DARK_CELL_TEXTURE_PATH,CELL_TEXTURE_SIZE,BOARD_TEXTURE_SIZE,window_size,rand_user_color);
 

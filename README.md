@@ -15,6 +15,6 @@
 
 ## Thursday - 08.05.25
 
-- [] class "Figure"
-- [] try to display pawns
+- [x] class "Figure"
+- [] class Pawn
 
