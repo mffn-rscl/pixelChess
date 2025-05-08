@@ -34,13 +34,13 @@ class Figure
 
         virtual ~Figure() = default;
 
-        virtual void draw(sf::RenderWindow& window);
+        virtual void draw(sf::RenderWindow& window) = 0;
         virtual void update_position();
         virtual void start_position();
         int move_counter();
 
         //get
-        virtual void get_possible_moves();
+        virtual void get_possible_moves() = 0;
         sf::Vector2i getBoardPosition() const { return c_board_position; }
         sf::Vector2f getPixelPosition() const { return c_pixel_position; }
         bool is_alive();
