@@ -41,8 +41,8 @@ class Figure
 
         //get
         virtual void get_possible_moves() = 0;
-        sf::Vector2i getBoardPosition() const { return c_board_position; }
-        sf::Vector2f getPixelPosition() const { return c_pixel_position; }
+        sf::Vector2i get_board_position() const { return c_board_position; }
+        sf::Vector2f get_pixel_position() const { return c_pixel_position; }
         bool is_alive();
 
         //to another class 

@@ -26,6 +26,7 @@
 ## Thursday - 08.05.25
 
 - [x] class "Figure"
-- [] class Pawn
+- [x] class Pawn
 
 ---
+
