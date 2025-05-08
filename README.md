@@ -26,7 +26,14 @@
 ## Thursday - 08.05.25
 
 - [x] class "Figure"
-- [x] class Pawn
+- [x] class "Pawn"
+
+
+## Friday - 09.05.25
+
+- [] finish class "Pawn"
+- [] try to start class "Game"
+
 
 ---
 
