@@ -1,5 +1,13 @@
 <h1>Pixel Chess</h1>
-<h2>Diary TO DO LIST:</h2> 
+
+---
+<h2>Total to_do_list:</h2>
+- [] finish figure classes  
+- [] create new class Game
+- [] move class Board to class Game
+
+---
+<h2>Diary to_do_list:</h2> 
 
 ## Thursday - 01.05.25
 - [x]  make assets
@@ -18,3 +26,4 @@
 - [x] class "Figure"
 - [] class Pawn
 
+---
