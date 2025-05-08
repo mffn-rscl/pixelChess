@@ -2,6 +2,8 @@
 
 ---
 <h2>Total to_do_list:</h2>
+
+
 - [] finish figure classes  
 - [] create new class Game
 - [] move class Board to class Game
