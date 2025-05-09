@@ -34,6 +34,10 @@
 - [] finish class "Pawn"
 - [] try to start class "Game"
 
+## Monday - 12.05.25
+
+- [] finish class "Pawn"
+- [] try to start class "Game"
 
 ---
 
