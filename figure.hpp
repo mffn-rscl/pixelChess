@@ -23,20 +23,28 @@ class Figure
 
         sf::Vector2i c_board_position; 
         sf::Vector2f c_pixel_position; 
+
         FigureType c_type;
+
+        //for another class  (relocate latter)
+        std::vector<std::vector<FigureType *>> c_game;
+
 
 
     public:
         Figure(const std::string& LIGHT_FIGURE_PATH,const std::string& DARK_FIGURE_PATH, const float FIGURE_SIZE,
         bool figure_color, sf::Vector2f pixel_position, sf::Vector2i board_position, FigureType type)
        
-        : C_FIGURE_SIZE(FIGURE_SIZE),c_figure_color(figure_color), c_pixel_position(pixel_position),c_board_position(board_position), c_type(type){}
+        : C_FIGURE_SIZE(FIGURE_SIZE),c_figure_color(figure_color), c_pixel_position(pixel_position),c_board_position(board_position), c_type(type)
+        {
+
+        }
 
         virtual ~Figure() = default;
 
         virtual void draw(sf::RenderWindow& window) = 0;
         virtual void update_position();
-        virtual void start_position();
+        virtual sf::Vector2f set_start_position();
         int move_counter();
 
         //get
@@ -45,7 +53,7 @@ class Figure
         sf::Vector2f get_pixel_position() const { return c_pixel_position; }
         bool is_alive();
 
-        //to another class 
+        //for another class  (relocate latter)
         bool is_white_move();
        
 };

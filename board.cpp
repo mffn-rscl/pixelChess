@@ -22,7 +22,7 @@ const std::string& DARK_CELL_PATH, const float CELL_SIZE, sf::Vector2f BOARD_SIZ
 void Board::build_field_of_cells()
 {
     c_cells_s.clear();
-    sf::Vector2f current_cell_pos = set_central_position();
+    sf::Vector2f current_cell_pos = set_start_position();
     for (int rows = 0; rows < 8; rows++)
     {
         for (int cols = 0; cols < 8; cols++)
@@ -44,7 +44,7 @@ void Board::build_field_of_cells()
 void Board::display_background_board(sf::RenderWindow& window)
 {
     c_background_board_s.setTexture(c_board_t);
-    c_background_board_s.setPosition(set_central_position());
+    c_background_board_s.setPosition(set_start_position());
     window.draw(c_background_board_s);   
 }
 
@@ -56,8 +56,8 @@ void Board::draw_board(sf::RenderWindow& window)
         window.draw(cell);
     }                        
 }
-
-sf::Vector2f Board::set_central_position()
+// for another class(relocate latter)
+sf::Vector2f Board::set_start_position()
 {
     float pos_x = (c_window_size.x - c_board_size.x) / 2;
     float pos_y = (c_window_size.y - c_board_size.y) / 4; 

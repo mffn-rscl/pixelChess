@@ -30,6 +30,8 @@ class Board
 
         void display_background_board(sf::RenderWindow& window);
 
-        sf::Vector2f set_central_position();
+// for another class(relocate latter)
+
+        sf::Vector2f set_start_position();
 
 };

@@ -22,6 +22,16 @@ class Pawn : public Figure
             c_dark_figure_s.setTexture(c_dark_figure_t);
         }
 
+// for another class(relocate latter)
+        virtual sf::Vector2f set_start_position(sf::RenderWindow& window)
+        {
+            sf::Vector2u window_size = window.getSize();
+            float pos_x = (window_size.x - c_board_size.x) / 2;
+            float pos_y = (window_size.y - c_board_size.y) / 4; 
+
+            return sf::Vector2f(pos_x, pos_y);            
+
+        }
 
 
 };  
