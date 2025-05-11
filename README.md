@@ -1,5 +1,14 @@
 <h1>Pixel Chess</h1>
 
+<h3> Launch</h3>
+
+```bash
+
+g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window -lsfml-system
+./chess-app
+
+```
+
 ---
 <h2>Total to_do_list:</h2>
 
