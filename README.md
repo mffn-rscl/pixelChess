@@ -14,7 +14,7 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 
 
 - [] finish figure classes  
-- [] create new class Game
+- [x] create new class Game
 - [] move class Board to class Game
 
 ---
@@ -41,12 +41,18 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 ## Friday - 09.05.25
 
 - [] finish class "Pawn"
-- [] try to start class "Game"
+- [x] try to start class "Game"
 
 ## Monday - 12.05.25
 
 - [] finish class "Pawn"
-- [] try to start class "Game"
+- [x] try to start class "Game"
+
+## Tuesday - 13.05.25
+- [] finish class "Pawn"
+- [] correct class "Figure"
+- [] print Pawns
+
 
 ---
 

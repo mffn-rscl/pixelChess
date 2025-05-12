@@ -1,19 +1,15 @@
 #include <SFML/Graphics.hpp>
 
-#include "board.hpp"
-#include "path_size.cpp"
+#include "const_values.cpp"
 
 
 
 int main() 
 {
-    srand(time(nullptr));
 
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Chess");
-    sf::Vector2u window_size = window.getSize();
-    bool rand_user_color = rand() % 2;
 
-    Board board(BOARD_TEXTURE_PATH,LIGHT_CELL_TEXTURE_PATH,DARK_CELL_TEXTURE_PATH,CELL_TEXTURE_SIZE,BOARD_TEXTURE_SIZE,window_size,rand_user_color);
+    // Board board(BOARD_TEXTURE_PATH,LIGHT_CELL_TEXTURE_PATH,DARK_CELL_TEXTURE_PATH,CELL_TEXTURE_SIZE,BOARD_TEXTURE_SIZE,SCREEN_RESOLUTION);
 
     while (window.isOpen()) 
     {
@@ -25,8 +21,8 @@ int main()
         }
         window.clear(sf::Color(200,230,247));
 
-        board.display_background_board(window);
-        board.draw_board(window);
+        // board.display_background_board(window);
+        // board.draw_board(window);
 
 
 
