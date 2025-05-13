@@ -53,6 +53,8 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 - [x] correct class "Figure"
 - [x] print Pawns
 
+![13.05.25 result](temp/screenshots/130525.png)
+
 ## Thursday - 14.05.25
 - [] make makefile
 - [] do interact with figures
