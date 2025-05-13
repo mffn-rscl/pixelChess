@@ -45,7 +45,7 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 
 ## Monday - 12.05.25
 
-- [] finish class "Pawn"
+- [x] finish class "Pawn"
 - [x] try to start class "Game"
 
 ## Tuesday - 13.05.25
@@ -53,6 +53,10 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 - [x] correct class "Figure"
 - [x] print Pawns
 
+## Thursday - 14.05.25
+- [] make makefile
+- [] do interact with figures
+- [] display another figures
 
 ---
 
