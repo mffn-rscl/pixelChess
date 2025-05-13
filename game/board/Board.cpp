@@ -32,7 +32,7 @@ void Board::build_field_of_cells()
 
 
             cell_sprite.setTexture((layout_board) ? c_light_cell_t : c_dark_cell_t);
-            cell_sprite.setPosition(cols * C_START_CELL_POS.x, rows * C_START_CELL_POS.y);
+            cell_sprite.setPosition(cols * C_CELL_SIZE.x + C_START_CELL_POS.x, rows * C_CELL_SIZE.y +  C_START_CELL_POS.y);
 
             c_cells_s.push_back(cell_sprite);   
         }

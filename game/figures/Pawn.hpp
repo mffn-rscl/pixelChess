@@ -11,13 +11,7 @@ class Pawn : public Figure
     public:
 
         Pawn(const std::string& FIGURE_PATH, const sf::Vector2f CELL_TEXTURE_SIZE,const sf::Vector2f START_FIGURE_POS,
-        sf::Vector2i board_position, FigureType type, FigureColor color)
-        
-        : Figure(FIGURE_PATH, CELL_TEXTURE_SIZE,START_FIGURE_POS, board_position, type, color)
-        {
-            c_is_moved = false;
-            set_pixel_position();
-        }
+        sf::Vector2i board_position, FigureType type, FigureColor color);
 
         void draw(sf::RenderWindow& window);
         void set_board_position(int x, int y);

@@ -16,7 +16,7 @@ void Pawn::set_board_position(int x, int y)
 }
 void Pawn::set_pixel_position()
 {
-    c_figure_s.setPosition(C_START_FIGURE_POS.x * c_board_position.x, C_START_FIGURE_POS.y * c_board_position.y);
+    c_figure_s.setPosition(C_START_FIGURE_POS.x + C_CELL_TEXTURE_SIZE.x * c_board_position.x, C_START_FIGURE_POS.y + C_CELL_TEXTURE_SIZE.y * c_board_position.y);
 }
 
 void Pawn::draw(sf::RenderWindow& window)

@@ -1,10 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "core/const_values.hpp"
-#include "core/Types.hpp"
 #include "board/Board.hpp"
 #include "figures/Pawn.hpp"
-
+#include "figures/Types.hpp"
 
 class Game
 {

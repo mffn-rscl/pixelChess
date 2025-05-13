@@ -87,7 +87,7 @@ void Game::initialize_light_figures()
     {
         c_color = FigureColor::LIGHT;
 
-        Pawn* pawn = new Pawn(LIGHT_FIGURE_PAWN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, sf::Vector2i(cols+1,7) , c_playing_field[cols][7], c_color);
+        Pawn* pawn = new Pawn(LIGHT_FIGURE_PAWN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, sf::Vector2i(cols,6) , c_playing_field[cols][7], c_color);
         c_pawns.push_back(pawn);
     }
     
@@ -99,7 +99,7 @@ void Game::initialize_dark_figures()
     {
         c_color = FigureColor::DARK;
 
-        Pawn* pawn = new Pawn(DARK_FIGURE_PAWN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, sf::Vector2i(cols+1,2) , c_playing_field[cols][1], c_color);
+        Pawn* pawn = new Pawn(DARK_FIGURE_PAWN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, sf::Vector2i(cols,1) , c_playing_field[cols][1], c_color);
         c_pawns.push_back(pawn);
     }
     

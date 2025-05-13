@@ -49,9 +49,9 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 - [x] try to start class "Game"
 
 ## Tuesday - 13.05.25
-- [] finish class "Pawn"
+- [x] finish class "Pawn" for print
 - [x] correct class "Figure"
-- [] print Pawns
+- [x] print Pawns
 
 
 ---

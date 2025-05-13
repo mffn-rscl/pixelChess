@@ -1,5 +1,6 @@
+
 #include <SFML/Graphics.hpp>
-#include "core/Types.hpp"
+#include "Types.hpp"
 
 class Figure
 {
@@ -21,8 +22,8 @@ class Figure
         Figure(const std::string& FIGURE_PATH, const sf::Vector2f CELL_TEXTURE_SIZE,const sf::Vector2f START_FIGURE_POS,
      sf::Vector2i board_position, FigureType type, FigureColor color)
        
-        : C_CELL_TEXTURE_SIZE(CELL_TEXTURE_SIZE),c_board_position(board_position), c_type(type),
-         c_color(color), C_START_FIGURE_POS(START_FIGURE_POS)
+        : C_CELL_TEXTURE_SIZE(CELL_TEXTURE_SIZE),C_START_FIGURE_POS(START_FIGURE_POS), c_board_position(board_position), c_type(type),
+         c_color(color)
         
         {
             if (!c_figure_t.loadFromFile(FIGURE_PATH)) 
