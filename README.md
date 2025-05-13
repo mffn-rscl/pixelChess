@@ -1,4 +1,4 @@
-<h1>Pixel Chess</h1>
+<h1>Chess clone</h1>
 
 <h3> Launch</h3>
 
