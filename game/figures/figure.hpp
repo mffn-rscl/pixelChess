@@ -10,48 +10,51 @@ enum class FigureType
     KNIGHT,
     BISHOP,
     QUEEN,
-    KING
+    KING,
+};
+
+enum class FigureColor
+{
+    LIGHT,
+    DARK
 };
 
 class Figure
 {
    protected:
-        const float C_FIGURE_SIZE;
-
-        sf::Texture c_light_figure_t;
-        sf::Texture c_dark_figure_t;
-        sf::Sprite c_light_figure_s;
-        sf::Sprite c_dark_figure_s;
+        const sf::Vector2f C_CELL_TEXTURE_SIZE; 
+        sf::Texture c_figure_t;
+        sf::Sprite c_figure_s;
 
         sf::Vector2i c_board_position; 
         sf::Vector2f c_pixel_position; 
 
         FigureType c_type;
 
+        FigureColor c_color;
 
 
 
     public:
-        Figure(const std::string& LIGHT_FIGURE_PATH,const std::string& DARK_FIGURE_PATH, const float FIGURE_SIZE,
-         sf::Vector2f pixel_position, sf::Vector2i board_position, FigureType type)
+        Figure(const std::string& FIGURE_PATH, const sf::Vector2f CELL_TEXTURE_SIZE,
+         sf::Vector2f pixel_position, sf::Vector2i board_position, FigureType type, FigureColor color)
        
-        : C_FIGURE_SIZE(FIGURE_SIZE), c_pixel_position(pixel_position),c_board_position(board_position), c_type(type)
+        : C_CELL_TEXTURE_SIZE(CELL_TEXTURE_SIZE), c_pixel_position(pixel_position),c_board_position(board_position), c_type(type), c_color(color)
         {
 
+            if (!c_figure_t.loadFromFile(FIGURE_PATH)) 
+            throw std::runtime_error ("Can't load file from " + FIGURE_PATH + ". Check the correct file name.");
+            c_figure_s.setTexture(c_figure_t);
         }
 
         virtual ~Figure() = default;
 
+        void set_start_position(int x, int y);
+        
         void draw(sf::RenderWindow& window);
-        virtual void update_position() = 0;
-        virtual sf::Vector2f set_start_position();
-        int move_counter();
 
-        //get
-        virtual void get_possible_moves() = 0;
-        sf::Vector2i get_board_position() const { return c_board_position; }
-        sf::Vector2f get_pixel_position() const { return c_pixel_position; }
-        bool is_alive();
+        
+
 
        
 };

@@ -50,7 +50,7 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 
 ## Tuesday - 13.05.25
 - [] finish class "Pawn"
-- [] correct class "Figure"
+- [x] correct class "Figure"
 - [] print Pawns
 
 

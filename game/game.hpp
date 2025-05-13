@@ -17,7 +17,7 @@ class Game
 {
     private:
         
-        
+        std::vector<Pawn> c_pawns;
 
         FigureType c_figure_type_board[8][8];
 

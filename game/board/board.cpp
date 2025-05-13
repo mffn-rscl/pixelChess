@@ -3,8 +3,8 @@
 
 
 Board::Board(const std::string& BOARD_TEXTURE_PATH, const std::string& DARK_CELL_TEXTURE_PATH, const std::string& LIGHT_CELL_TEXTURE_PATH,
-            sf::Vector2f BOARD_SIZE,sf::Vector2f CELL_SIZE,const sf::Vector2f START_BOARD_POS, const sf::Vector2f START_FIGURE_POS)
-            : C_BOARD_SIZE(BOARD_SIZE), C_CELL_SIZE(CELL_SIZE), C_START_BOARD_POS(START_BOARD_POS), C_START_FIGURE_POS(START_FIGURE_POS)
+            sf::Vector2f BOARD_SIZE,sf::Vector2f CELL_SIZE,const sf::Vector2f START_BOARD_POS, const sf::Vector2f START_CELL_POS)
+            : C_BOARD_SIZE(BOARD_SIZE), C_CELL_SIZE(CELL_SIZE), C_START_BOARD_POS(START_BOARD_POS), C_START_CELL_POS(START_CELL_POS)
 {
 
     if (!c_background_board_t.loadFromFile(BOARD_TEXTURE_PATH)) 
@@ -32,7 +32,7 @@ void Board::build_field_of_cells()
 
 
             cell_sprite.setTexture((layout_board) ? c_light_cell_t : c_dark_cell_t);
-            cell_sprite.setPosition(cols * C_START_FIGURE_POS.x, rows * C_START_FIGURE_POS.y);
+            cell_sprite.setPosition(cols * C_START_CELL_POS.x, rows * C_START_CELL_POS.y);
 
             c_cells_s.push_back(cell_sprite);   
         }

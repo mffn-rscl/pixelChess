@@ -16,7 +16,7 @@ class Board
         
         //start position
         const sf::Vector2f C_START_BOARD_POS;
-        const sf::Vector2f C_START_FIGURE_POS;
+        const sf::Vector2f C_START_CELL_POS;
     
         // textures
         sf::Texture c_background_board_t;
@@ -32,7 +32,7 @@ class Board
 
     public:
         Board(const std::string& BOARD_TEXTURE_PATH, const std::string& DARK_CELL_TEXTURE_PATH, const std::string& LIGHT_CELL_TEXTURE_PATH,
-        const sf::Vector2f BOARD_SIZE, const sf::Vector2f CELL_SIZE, const sf::Vector2f START_BOARD_POS, const sf::Vector2f START_FIGURE_POS);
+        const sf::Vector2f BOARD_SIZE, const sf::Vector2f CELL_SIZE, const sf::Vector2f START_BOARD_POS, const sf::Vector2f START_CELL_POS);
 
         void build_field_of_cells();
         
