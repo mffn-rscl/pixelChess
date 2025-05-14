@@ -55,7 +55,7 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 
 ![13.05.25 result](temp/screenshots/130525.png)
 
-## Thursday - 14.05.25
+## Thursday - 15.05.25
 - [] make makefile
 - [] do interact with figures
 - [] display another figures
