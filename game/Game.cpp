@@ -113,6 +113,38 @@ void Game::initialize_figures()
         dark_figure->set_board_position(sf::Vector2i(cols*7, 0));
         c_figures.push_back(dark_figure);
     }
+
+    //BISHOPS
+    for (int cols = 2; cols <= 5; cols+=3)
+    {
+        c_color = FigureColor::LIGHT;
+
+        Bishop* light_figure =new Bishop(LIGHT_FIGURE_BISHOP_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][7], c_color);
+        light_figure->set_board_position(sf::Vector2i(cols, 7));
+        c_figures.push_back(light_figure);
+
+        c_color = FigureColor::DARK;
+
+        Bishop* dark_figure =new Bishop(DARK_FIGURE_BISHOP_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][0], c_color);
+        dark_figure->set_board_position(sf::Vector2i(cols, 0));
+        c_figures.push_back(dark_figure);
+    }
+    
+    //KNIGHTS
+    for (int cols = 1; cols <= 6; cols+=5)
+    {
+        c_color = FigureColor::LIGHT;
+
+        Knight* light_figure =new Knight(LIGHT_FIGURE_KNIGHT_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][7], c_color);
+        light_figure->set_board_position(sf::Vector2i(cols, 7));
+        c_figures.push_back(light_figure);
+
+        c_color = FigureColor::DARK;
+
+        Knight* dark_figure =new Knight(DARK_FIGURE_KNIGHT_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][0], c_color);
+        dark_figure->set_board_position(sf::Vector2i(cols, 0));
+        c_figures.push_back(dark_figure);
+    }
     
 
 

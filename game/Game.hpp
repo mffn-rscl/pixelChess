@@ -6,6 +6,9 @@
 #include "figures/Figure.hpp"
 #include "figures/Pawn/Pawn.hpp"
 #include "figures/Rook/Rook.hpp"
+#include "figures/Bishop/Bishop.hpp"
+#include "figures/Knight/Knight.hpp"
+
 class Game
 {
     private:

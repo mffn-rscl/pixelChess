@@ -2,12 +2,12 @@
 
 
 
-class Rook : public Figure
+class Knight : public Figure
 {
     
     public:
         using Figure::Figure;
-        ~Rook();
+        ~Knight();
         // virtual void get_moves();
-        
+
 };  
