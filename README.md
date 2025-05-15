@@ -60,5 +60,6 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 - [] do interact with figures
 - [x] display another figures
 
+![15.05.25](temp/screenshots/150525.png)
 ---
 
