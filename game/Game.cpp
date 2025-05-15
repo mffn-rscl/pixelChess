@@ -3,18 +3,16 @@
 Game::Game() : c_window(sf::VideoMode(1920, 1080), "Chess")
 {
     initialize_playing_field();
-    initialize_light_figures();
-    initialize_dark_figures();
+    initialize_figures();
 }
 
 Game::~Game()
 {
-    for(auto pawns : c_pawns)
+    for(auto figure : c_figures)
     {
-        delete pawns;
+        delete figure;
     }
 }
-
 void Game::run()
 {
     Board board(BOARD_TEXTURE_PATH,DARK_CELL_TEXTURE_PATH,LIGHT_CELL_TEXTURE_PATH,BOARD_TEXTURE_SIZE,CELL_TEXTURE_SIZE,START_BOARD_POS, START_FIGURE_POS);
@@ -32,9 +30,9 @@ void Game::run()
         board.draw_board(c_window);
 
 
-        for(auto pawn : c_pawns)
+        for(auto figure : c_figures)
         {
-            pawn->draw(c_window);
+            figure->draw(c_window);
         }
 
                     
@@ -42,6 +40,7 @@ void Game::run()
         c_window.display();
     }
 }
+
 
 void Game::initialize_playing_field()
 {
@@ -80,28 +79,44 @@ void Game::initialize_playing_field()
 
 }
 
-void Game::initialize_light_figures()
+void Game::initialize_figures()
 {   
     // PAWNS
     for (int cols = 0; cols < 8; cols++)
     {
         c_color = FigureColor::LIGHT;
 
-        Pawn* pawn = new Pawn(LIGHT_FIGURE_PAWN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, sf::Vector2i(cols,6) , c_playing_field[cols][7], c_color);
-        c_pawns.push_back(pawn);
-    }
-    
-}
-void Game::initialize_dark_figures()
-{
-    // PAWNS
-    for (int cols = 0; cols < 8; cols++)
-    {
+        Pawn* light_figure = new Pawn(LIGHT_FIGURE_PAWN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][7], c_color);
+        light_figure->set_board_position(sf::Vector2i(cols, 6));
+        c_figures.push_back(light_figure);
+
         c_color = FigureColor::DARK;
 
-        Pawn* pawn = new Pawn(DARK_FIGURE_PAWN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, sf::Vector2i(cols,1) , c_playing_field[cols][1], c_color);
-        c_pawns.push_back(pawn);
+        Pawn* dark_figure = new Pawn(DARK_FIGURE_PAWN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][1], c_color);
+        dark_figure->set_board_position(sf::Vector2i(cols, 1));
+        c_figures.push_back(dark_figure);
+    }
+   
+    //ROOKS
+
+    for (int cols = 0; cols < 2; cols++)
+    {
+        c_color = FigureColor::LIGHT;
+
+        Rook* light_figure =new Rook(LIGHT_FIGURE_ROOK_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols*7][7], c_color);
+        light_figure->set_board_position(sf::Vector2i(cols*7, 7));
+        c_figures.push_back(light_figure);
+
+        c_color = FigureColor::DARK;
+
+        Rook* dark_figure =new Rook(DARK_FIGURE_ROOK_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols*7][0], c_color);
+        dark_figure->set_board_position(sf::Vector2i(cols*7, 0));
+        c_figures.push_back(dark_figure);
     }
     
+
+
 }
+    
+
 
