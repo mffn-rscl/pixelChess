@@ -8,6 +8,8 @@
 #include "figures/Rook/Rook.hpp"
 #include "figures/Bishop/Bishop.hpp"
 #include "figures/Knight/Knight.hpp"
+#include "figures/King/King.hpp"
+#include "figures/Queen/Queen.hpp"
 
 class Game
 {

@@ -98,7 +98,6 @@ void Game::initialize_figures()
     }
    
     //ROOKS
-
     for (int cols = 0; cols < 2; cols++)
     {
         c_color = FigureColor::LIGHT;
@@ -145,6 +144,32 @@ void Game::initialize_figures()
         dark_figure->set_board_position(sf::Vector2i(cols, 0));
         c_figures.push_back(dark_figure);
     }
+
+    //KING 
+     c_color = FigureColor::LIGHT;
+
+    King* light_figure =new King(LIGHT_FIGURE_KING_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[4][7], c_color);
+    light_figure->set_board_position(sf::Vector2i(4, 7));
+    c_figures.push_back(light_figure);
+
+    c_color = FigureColor::DARK;
+
+    King* dark_figure =new King(DARK_FIGURE_KING_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[4][0], c_color);
+    dark_figure->set_board_position(sf::Vector2i(4, 0));
+    c_figures.push_back(dark_figure);
+
+     //QUEEN 
+     c_color = FigureColor::LIGHT;
+
+    Queen* light_figure_q =new Queen(LIGHT_FIGURE_QUEEN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[3][7], c_color);
+    light_figure_q->set_board_position(sf::Vector2i(3, 7));
+    c_figures.push_back(light_figure_q);
+
+    c_color = FigureColor::DARK;
+
+    Queen* dark_figure_q =new Queen(DARK_FIGURE_QUEEN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[3][0], c_color);
+    dark_figure_q->set_board_position(sf::Vector2i(3, 0));
+    c_figures.push_back(dark_figure_q);
     
 
 
