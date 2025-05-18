@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "core/const_values.hpp"
-#include "figures/Types.hpp"
 #include "board/Board.hpp"
+#include "figures/Types.hpp"
 #include "figures/Figure.hpp"
 #include "figures/Pawn/Pawn.hpp"
 #include "figures/Rook/Rook.hpp"
@@ -20,6 +20,7 @@ class Game
         FigureType c_playing_field[8][8];
         FigureColor c_color;
 
+        bool c_is_light_move;
     public:
 
         Game();
@@ -30,5 +31,7 @@ class Game
         void initialize_playing_field();
 
         void initialize_figures();
+
+        bool is_light_move() const;
 
 };

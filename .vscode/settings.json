@@ -100,6 +100,17 @@
     "numbers": "cpp",
     "ostream": "cpp",
     "streambuf": "cpp",
-    "typeinfo": "cpp"
+    "typeinfo": "cpp",
+    "complex": "cpp",
+    "condition_variable": "cpp",
+    "cstring": "cpp",
+    "ratio": "cpp",
+    "iostream": "cpp",
+    "istream": "cpp",
+    "mutex": "cpp",
+    "semaphore": "cpp",
+    "sstream": "cpp",
+    "stop_token": "cpp",
+    "thread": "cpp"
   }
 }

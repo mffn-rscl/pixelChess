@@ -1,9 +1,11 @@
 #include "Game.hpp"
-
+#include <iostream>
 Game::Game() : c_window(sf::VideoMode(1920, 1080), "Chess")
 {
     initialize_playing_field();
     initialize_figures();
+
+    c_is_light_move = true;
 }
 
 Game::~Game()
@@ -11,33 +13,6 @@ Game::~Game()
     for(auto figure : c_figures)
     {
         delete figure;
-    }
-}
-void Game::run()
-{
-    Board board(BOARD_TEXTURE_PATH,DARK_CELL_TEXTURE_PATH,LIGHT_CELL_TEXTURE_PATH,BOARD_TEXTURE_SIZE,CELL_TEXTURE_SIZE,START_BOARD_POS, START_FIGURE_POS);
-    while (c_window.isOpen()) 
-    {
-
-        sf::Event event;
-        while (c_window.pollEvent(event))
-        {
-                if (event.type == sf::Event::Closed) c_window.close();
-        }
-        c_window.clear(sf::Color(200,230,247));
-
-        board.display_background_board(c_window);
-        board.draw_board(c_window);
-
-
-        for(auto figure : c_figures)
-        {
-            figure->draw(c_window);
-        }
-
-                    
-
-        c_window.display();
     }
 }
 
@@ -175,5 +150,110 @@ void Game::initialize_figures()
 
 }
     
+bool Game::is_light_move() const{return c_is_light_move;}
 
 
+void Game::run()
+{
+    Board board(BOARD_TEXTURE_PATH,DARK_CELL_TEXTURE_PATH,LIGHT_CELL_TEXTURE_PATH,BOARD_TEXTURE_SIZE,CELL_TEXTURE_SIZE,START_BOARD_POS, START_FIGURE_POS);
+
+    //move figure
+        Figure* define_figure = nullptr;
+        bool figure_found= false;
+        bool current_x = false;
+        bool current_y = false;
+        sf::Vector2f current_figure_pos;
+
+    while (c_window.isOpen()) 
+    {
+      
+        sf::Event event;
+        while (c_window.pollEvent(event))
+        {
+                if (event.type == sf::Event::Closed) c_window.close();
+              
+           
+                if (event.type == sf::Event::MouseButtonPressed)
+                {
+                    if(event.mouseButton.button == sf::Mouse::Left)
+                    {
+                        if (!figure_found)
+                        {
+                            
+                            
+                            sf::Vector2f mouse_pressed (event.mouseButton.x,event.mouseButton.y);
+
+                            for(auto figure : c_figures)
+                            {
+                                // std::cout << "TRYING TO FIND CURRENT FIGURE ON THIS POS..." << std::endl;
+                                current_figure_pos = figure->get_pixel_pos();
+                            
+                                current_x = current_figure_pos.x < mouse_pressed.x && current_figure_pos.x + CELL_TEXTURE_SIZE.x > mouse_pressed.x;
+                                current_y = current_figure_pos.y < mouse_pressed.y && current_figure_pos.y + CELL_TEXTURE_SIZE.y > mouse_pressed.y;
+
+                                if(current_x && current_y && (is_light_move() && define_figure->get_color() == FigureColor::LIGHT || !is_light_move() && define_figure->get_color() == FigureColor::DARK))
+                                {
+                                    if(!figure->is_alive()) break;
+
+
+                                    // std::cout << "FIGURE FOUND." << std::endl;
+                                    define_figure = figure;
+                                    figure_found = true;
+                                    break;
+                                }                        
+
+                            // std::cout << "FIGURE NOT FOUND. " << std::endl;
+                            }
+                        }
+                        else
+                        {
+                            if(define_figure != nullptr)
+                            {
+                                sf::Vector2f mouse_pressed (event.mouseButton.x,event.mouseButton.y);
+                                define_figure->get_moves(); //  
+
+
+                                    for(auto figure : c_figures)
+                                    {
+                                        current_figure_pos = figure->get_pixel_pos();
+
+                                        current_x = current_figure_pos.x < mouse_pressed.x && current_figure_pos.x + CELL_TEXTURE_SIZE.x > mouse_pressed.x;
+                                        current_y = current_figure_pos.y < mouse_pressed.y && current_figure_pos.y + CELL_TEXTURE_SIZE.y > mouse_pressed.y;
+
+                                        if(current_y && current_x)
+                                        {
+                                            // kill figure
+                                            figure->sam_is_dead();
+                                            break;
+                                        }
+                                    }
+
+
+
+                                figure_found = false;
+                                define_figure = nullptr;
+                            }
+
+                            
+                        }
+                
+                    }
+                  
+                }
+        }
+        c_window.clear(sf::Color(200,230,247));
+
+        board.display_background_board(c_window);
+        board.draw_board(c_window);
+
+
+        for(auto figure : c_figures)
+        {
+            figure->draw(c_window);
+        }
+
+                    
+
+        c_window.display();
+    }
+}

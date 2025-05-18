@@ -20,6 +20,8 @@ class Figure
         FigureType c_type;
         FigureColor c_color;
 
+        bool c_is_alive;
+
 
 
     public:
@@ -29,7 +31,8 @@ class Figure
 
         void set_board_position(sf::Vector2i board_position);
         void set_pixel_position();
-
+        void set_pixel_position(sf::Vector2f figure_position);
+        void sam_is_dead();
         void draw(sf::RenderWindow& window);
 
         //get
@@ -37,8 +40,9 @@ class Figure
         FigureType get_figure_type() const;
         sf::Vector2i get_board_pos() const;
         sf::Vector2f get_pixel_pos() const;
+        bool is_alive() const;
         
-      //   virtual void get_moves();
+        virtual void get_moves();
 
 
        
