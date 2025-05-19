@@ -180,7 +180,6 @@ void Game::run()
                         if (!figure_found)
                         {
                             
-                            
                             sf::Vector2f mouse_pressed (event.mouseButton.x,event.mouseButton.y);
 
                             for(auto figure : c_figures)
@@ -191,7 +190,8 @@ void Game::run()
                                 current_x = current_figure_pos.x < mouse_pressed.x && current_figure_pos.x + CELL_TEXTURE_SIZE.x > mouse_pressed.x;
                                 current_y = current_figure_pos.y < mouse_pressed.y && current_figure_pos.y + CELL_TEXTURE_SIZE.y > mouse_pressed.y;
 
-                                if(current_x && current_y && (is_light_move() && define_figure->get_color() == FigureColor::LIGHT || !is_light_move() && define_figure->get_color() == FigureColor::DARK))
+                                if(current_x && current_y && (is_light_move() && define_figure->get_color() == FigureColor::LIGHT || 
+                                !is_light_move() && define_figure->get_color() == FigureColor::DARK))
                                 {
                                     if(!figure->is_alive()) break;
 
@@ -199,6 +199,9 @@ void Game::run()
                                     // std::cout << "FIGURE FOUND." << std::endl;
                                     define_figure = figure;
                                     figure_found = true;
+
+
+                                    //print move points
                                     break;
                                 }                        
 
@@ -210,8 +213,7 @@ void Game::run()
                             if(define_figure != nullptr)
                             {
                                 sf::Vector2f mouse_pressed (event.mouseButton.x,event.mouseButton.y);
-                                define_figure->get_moves(); //  
-
+                                bool is_current_move = define_figure->is_current_move(mouse_pressed); 
 
                                     for(auto figure : c_figures)
                                     {

@@ -12,6 +12,7 @@ Figure::Figure(const std::string& FIGURE_PATH, const sf::Vector2f CELL_TEXTURE_S
     c_is_alive = true;
 }
 
+
 Figure::~Figure() {}
     
 
@@ -22,6 +23,7 @@ void Figure::set_board_position(sf::Vector2i board_position)
     set_pixel_position();
 }
 
+
 void Figure::set_pixel_position()
 {   
     c_pixel_position.x = C_START_FIGURE_POS.x + C_CELL_TEXTURE_SIZE.x * c_board_position.x;
@@ -29,12 +31,17 @@ void Figure::set_pixel_position()
 
     c_figure_s.setPosition(c_pixel_position.x, c_pixel_position.y);
 }
+
+
 void Figure::set_pixel_position(sf::Vector2f figure_position)
 {
     c_pixel_position = figure_position;
     c_figure_s.setPosition(c_pixel_position);
 }
 void Figure::sam_is_dead() { c_is_alive = false; }
+
+
+
 
 
 
