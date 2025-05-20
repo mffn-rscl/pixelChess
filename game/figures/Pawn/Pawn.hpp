@@ -12,8 +12,9 @@ class Pawn : public Figure
         using Figure::Figure;
         ~Pawn();
         bool get_is_first_move()const;
-        // virtual void get_moves();
-        virtual bool is_current_move(sf::Vector2f mouse_clicked_pos);
-        virtual std::vector<sf::Vector2f> get_possible_moves();
+        void is_not_first_move();
+
+        virtual bool is_current_move(sf::Vector2i mouse_clicked_pos);
+        virtual std::vector<sf::Vector2i> get_possible_moves(const FigureType playing_field[8][8]);
 
 };  

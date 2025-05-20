@@ -18,6 +18,7 @@ class Figure
         sf::Vector2f c_pixel_position; 
 
         FigureType c_type;
+        FigureType c_playing_field[8][8];
         FigureColor c_color;
 
         bool c_is_alive;
@@ -31,7 +32,7 @@ class Figure
 
         void set_board_position(sf::Vector2i board_position);
         void set_pixel_position();
-        void set_pixel_position(sf::Vector2f figure_position);
+        
         void sam_is_dead();
         void draw(sf::RenderWindow& window);
 
@@ -42,11 +43,11 @@ class Figure
         sf::Vector2f get_pixel_pos() const;
         bool is_alive() const;
         
-        virtual std::vector<sf::Vector2f> get_possible_moves();
-        virtual bool is_current_move(sf::Vector2f mouse_clicked_pos);
+        virtual bool is_current_move(sf::Vector2i mouse_clicked_pos);
+        virtual std::vector<sf::Vector2i> get_possible_moves();
 
 
-       
+        void set_playing_field(const FigureType playing_field[8][8]);
 };
 
 #endif // FIGURE_HPP

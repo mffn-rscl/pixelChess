@@ -62,8 +62,11 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 
 ![15.05.25](temp/screenshots/150525.png)
 
-## Monday - 19.05.25
-- [] rewrite method Game::run()
-- [] move pawns   
+## Tuesday - 20.05.25
+- [x] bug fixing Game::run()
+- [] method is_current_move for Pawns
+- [] method get_possible_moves for Pawns
+
+
 ---
 

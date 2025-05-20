@@ -1,5 +1,4 @@
 #include "Game.hpp"
-#include <iostream>
 Game::Game() : c_window(sf::VideoMode(1920, 1080), "Chess")
 {
     initialize_playing_field();
@@ -152,6 +151,21 @@ void Game::initialize_figures()
     
 bool Game::is_light_move() const{return c_is_light_move;}
 
+sf::Vector2i Game::get_clicked_board_position(float x, float y)
+{
+    int board_x = floor( (x - START_FIGURE_POS.x) / CELL_TEXTURE_SIZE.x );
+    int board_y = floor( (y - START_FIGURE_POS.y) / CELL_TEXTURE_SIZE.y );
+    return sf::Vector2i(board_x, board_y);
+}
+
+
+void Game::set_figure_pos_in_playing_field(const Figure* figure, sf::Vector2i new_position)
+{
+    sf::Vector2i current_position = figure->get_board_pos();
+    c_playing_field[current_position.x-1][current_position.y-1] = FigureType::EMPTY;
+    c_playing_field[new_position.x-1][new_position.y-1] = figure->get_figure_type();
+}
+
 
 void Game::run()
 {
@@ -160,9 +174,8 @@ void Game::run()
     //move figure
         Figure* define_figure = nullptr;
         bool figure_found= false;
-        bool current_x = false;
-        bool current_y = false;
-        sf::Vector2f current_figure_pos;
+        
+        sf::Vector2i current_figure_board_pos;
 
     while (c_window.isOpen()) 
     {
@@ -177,67 +190,76 @@ void Game::run()
                 {
                     if(event.mouseButton.button == sf::Mouse::Left)
                     {
-                        if (!figure_found)
+                         if (!figure_found)
                         {
                             
-                            sf::Vector2f mouse_pressed (event.mouseButton.x,event.mouseButton.y);
+                            sf::Vector2i mouse_clicked = get_clicked_board_position(event.mouseButton.x,event.mouseButton.y);
 
                             for(auto figure : c_figures)
                             {
+
                                 // std::cout << "TRYING TO FIND CURRENT FIGURE ON THIS POS..." << std::endl;
-                                current_figure_pos = figure->get_pixel_pos();
+                                
+                                current_figure_board_pos = figure->get_board_pos();
                             
-                                current_x = current_figure_pos.x < mouse_pressed.x && current_figure_pos.x + CELL_TEXTURE_SIZE.x > mouse_pressed.x;
-                                current_y = current_figure_pos.y < mouse_pressed.y && current_figure_pos.y + CELL_TEXTURE_SIZE.y > mouse_pressed.y;
-
-                                if(current_x && current_y && (is_light_move() && define_figure->get_color() == FigureColor::LIGHT || 
-                                !is_light_move() && define_figure->get_color() == FigureColor::DARK))
+                                
+                                if(current_figure_board_pos.x == mouse_clicked.x && current_figure_board_pos.y == mouse_clicked.y &&
+                                (is_light_move() && figure->get_color() == FigureColor::LIGHT || !is_light_move() && figure->get_color() == FigureColor::DARK))
                                 {
-                                    if(!figure->is_alive()) break;
+                                    if(!figure->is_alive()) continue;
 
-
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                                     // std::cout << "FIGURE FOUND." << std::endl;
                                     define_figure = figure;
                                     figure_found = true;
 
-
                                     //print move points
+                                    // std::vector<sf::Vector2f> possible_moves = define_figure->get_possible_moves();
+
+                                    // // need to create vector for saving new vector with cyrcles for show possible moves                                
+                                    // for(auto move_current_position : possible_moves){}
                                     break;
                                 }                        
-
+                           
                             // std::cout << "FIGURE NOT FOUND. " << std::endl;
+                           
                             }
                         }
                         else
                         {
                             if(define_figure != nullptr)
                             {
-                                sf::Vector2f mouse_pressed (event.mouseButton.x,event.mouseButton.y);
-                                bool is_current_move = define_figure->is_current_move(mouse_pressed); 
+                                sf::Vector2i mouse_clicked = get_clicked_board_position(event.mouseButton.x,event.mouseButton.y);
 
+                                bool is_current_move = define_figure->is_current_move(mouse_clicked); 
+                               
+                                if(is_current_move)
+                                {
                                     for(auto figure : c_figures)
                                     {
-                                        current_figure_pos = figure->get_pixel_pos();
+                                        current_figure_board_pos = figure->get_board_pos();
 
-                                        current_x = current_figure_pos.x < mouse_pressed.x && current_figure_pos.x + CELL_TEXTURE_SIZE.x > mouse_pressed.x;
-                                        current_y = current_figure_pos.y < mouse_pressed.y && current_figure_pos.y + CELL_TEXTURE_SIZE.y > mouse_pressed.y;
+                                      
 
-                                        if(current_y && current_x)
+                                        if(current_figure_board_pos.x == mouse_clicked.x && current_figure_board_pos.y == mouse_clicked.y  
+                                        && figure->get_color() != define_figure->get_color())
                                         {
-                                            // kill figure
                                             figure->sam_is_dead();
                                             break;
                                         }
                                     }
+                                    set_figure_pos_in_playing_field(define_figure, mouse_clicked);
+                                    define_figure->set_board_position(mouse_clicked);
 
-
-
-                                figure_found = false;
-                                define_figure = nullptr;
+                                }
+                                    
                             }
-
+                          
+                            figure_found = false;
+                            define_figure = nullptr;
                             
                         }
+
                 
                     }
                   
@@ -251,7 +273,7 @@ void Game::run()
 
         for(auto figure : c_figures)
         {
-            figure->draw(c_window);
+            if(figure->is_alive()) figure->draw(c_window);
         }
 
                     

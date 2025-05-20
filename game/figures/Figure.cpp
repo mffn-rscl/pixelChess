@@ -32,18 +32,16 @@ void Figure::set_pixel_position()
     c_figure_s.setPosition(c_pixel_position.x, c_pixel_position.y);
 }
 
-
-void Figure::set_pixel_position(sf::Vector2f figure_position)
-{
-    c_pixel_position = figure_position;
-    c_figure_s.setPosition(c_pixel_position);
-}
 void Figure::sam_is_dead() { c_is_alive = false; }
 
 
 
+void Figure::draw(sf::RenderWindow& window)
+{
+    window.draw(c_figure_s);
+}
 
-
+void Figure::set_playing_field(const FigureType playing_field[8][8]) {c_playing_field = playing_field;} // !
 
 
 //get
@@ -53,7 +51,3 @@ sf::Vector2i Figure::get_board_pos() const { return c_board_position; }
 sf::Vector2f Figure::get_pixel_pos() const { return  c_pixel_position; } 
 bool Figure::is_alive() const { return c_is_alive;}
 
-void Figure::draw(sf::RenderWindow& window)
-{
-    window.draw(c_figure_s);
-}

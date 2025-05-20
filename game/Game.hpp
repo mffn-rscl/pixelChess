@@ -1,5 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include <cmath>
 #include "core/const_values.hpp"
 #include "board/Board.hpp"
 #include "figures/Types.hpp"
@@ -28,10 +30,15 @@ class Game
         void run();
 
     private:
-        void initialize_playing_field();
 
+        void initialize_playing_field();
         void initialize_figures();
+        void set_figure_pos_in_playing_field(const Figure* figure, sf::Vector2i new_position);
+
+
+        //  use in Game::run():
+        sf::Vector2i get_clicked_board_position(float x, float y);
 
         bool is_light_move() const;
 
-};
+};  

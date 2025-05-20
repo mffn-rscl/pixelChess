@@ -5,7 +5,7 @@
 const std::string BOARD_TEXTURE_PATH = "textures/board/board.png";
 const std::string DARK_CELL_TEXTURE_PATH = "textures/board/dark.png";
 const std::string LIGHT_CELL_TEXTURE_PATH = "textures/board/light.png";
-const std::string O_PATH = "textures/sketches/test/Sprite-001.png";
+const std::string HINT_PATH = "textures/hint.png";
 
 
 //light figures
