@@ -67,6 +67,9 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 - [] method is_current_move for Pawns
 - [] method get_possible_moves for Pawns
 
-
+## Tuesday - 27.05.25
+- [] fix class board
+- [] method Game::run() optimization
+- [] move pawns correctly
 ---
 

@@ -5,43 +5,48 @@ Pawn::~Pawn(){}
 
 bool Pawn::get_is_first_move() const { return c_is_first_move; }
 
-void Pawn::is_not_first_move() {c_is_first_move = false;}
+void Pawn::is_not_first_move() { c_is_first_move = false; }
 
 bool Pawn::is_current_move(sf::Vector2i mouse_clicked_pos)
 {
-    for(auto moves : get_possible_moves())// !
+    std::vector<sf::Vector2i> possible_moves = get_possible_moves();
+    for(auto moves : possible_moves)
     {
-        if (moves == mouse_clicked_pos)return true;
-        
+        if (moves == mouse_clicked_pos) 
+        {
+            c_is_first_move = false;
+            return true;
+        }
     }
     return false;
-}
+} 
 
-std::vector<sf::Vector2i> Pawn::get_possible_moves(const FigureType playing_field[8][8])
+std::vector<sf::Vector2i> Pawn::get_possible_moves()
 {
-    //add beating figures
-
     std::vector<sf::Vector2i> moves;
-  
-    switch (get_color())
+
+    int direction = (get_color() == FigureColor::LIGHT) ? -1 : 1;
+    int start_row_pos = (get_color() == FigureColor::LIGHT) ? 6 : 1;
+    int current_x = c_board_position.x;
+    int current_y = c_board_position.y;
+
+    int next_move_y = current_y + direction;
+
+    if (is_valid_position(current_x , next_move_y) && c_playing_field[current_x][next_move_y] == FigureType::EMPTY)
     {
-    case FigureColor::LIGHT:
-        if (playing_field[c_board_position.x][c_board_position.y--] == FigureType::EMPTY && c_board_position.y>1)
-            moves.push_back(sf::Vector2i(c_board_position.x, c_board_position.y--));
+        moves.push_back(sf::Vector2i(current_x, next_move_y));
 
-        if (playing_field[c_board_position.x][c_board_position.y-2] == FigureType::EMPTY && c_is_first_move)
-            moves.push_back(sf::Vector2i(c_board_position.x, c_board_position.y-2));
+        if (current_y == start_row_pos)
+        {
+           int next_double_move_y = current_y + 2 * direction;   
 
-        break; 
-        
-    case FigureColor::DARK:
-        if (playing_field[c_board_position.x][c_board_position.y++] == FigureType::EMPTY && c_board_position.y<8)
-            moves.push_back(sf::Vector2i(c_board_position.x, c_board_position.y++));
-
-        if (playing_field[c_board_position.x][c_board_position.y+2] == FigureType::EMPTY && c_is_first_move)
-            moves.push_back(sf::Vector2i(c_board_position.x, c_board_position.y+2));
-        break;
+           if (is_valid_position(current_x , next_double_move_y) && c_playing_field[current_x][next_double_move_y] == FigureType::EMPTY)
+           {
+                moves.push_back(sf::Vector2i(current_x, next_double_move_y));
+           }
+        }
     }
+    
     
     return moves;
 }

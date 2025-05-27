@@ -60,7 +60,7 @@ void Game::initialize_figures()
     {
         c_color = FigureColor::LIGHT;
 
-        Pawn* light_figure = new Pawn(LIGHT_FIGURE_PAWN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][7], c_color);
+        Pawn* light_figure = new Pawn(LIGHT_FIGURE_PAWN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][6], c_color);
         light_figure->set_board_position(sf::Vector2i(cols, 6));
         c_figures.push_back(light_figure);
 
@@ -71,90 +71,96 @@ void Game::initialize_figures()
         c_figures.push_back(dark_figure);
     }
    
-    //ROOKS
-    for (int cols = 0; cols < 2; cols++)
-    {
-        c_color = FigureColor::LIGHT;
+    // //ROOKS
+    // for (int cols = 0; cols < 2; cols++)
+    // {
+    //     c_color = FigureColor::LIGHT;
 
-        Rook* light_figure =new Rook(LIGHT_FIGURE_ROOK_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols*7][7], c_color);
-        light_figure->set_board_position(sf::Vector2i(cols*7, 7));
-        c_figures.push_back(light_figure);
+    //     Rook* light_figure =new Rook(LIGHT_FIGURE_ROOK_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols*7][7], c_color);
+    //     light_figure->set_board_position(sf::Vector2i(cols*7, 7));
+    //     c_figures.push_back(light_figure);
 
-        c_color = FigureColor::DARK;
+    //     c_color = FigureColor::DARK;
 
-        Rook* dark_figure =new Rook(DARK_FIGURE_ROOK_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols*7][0], c_color);
-        dark_figure->set_board_position(sf::Vector2i(cols*7, 0));
-        c_figures.push_back(dark_figure);
-    }
+    //     Rook* dark_figure =new Rook(DARK_FIGURE_ROOK_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols*7][0], c_color);
+    //     dark_figure->set_board_position(sf::Vector2i(cols*7, 0));
+    //     c_figures.push_back(dark_figure);
+    // }
 
-    //BISHOPS
-    for (int cols = 2; cols <= 5; cols+=3)
-    {
-        c_color = FigureColor::LIGHT;
+    // //BISHOPS
+    // for (int cols = 2; cols <= 5; cols+=3)
+    // {
+    //     c_color = FigureColor::LIGHT;
 
-        Bishop* light_figure =new Bishop(LIGHT_FIGURE_BISHOP_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][7], c_color);
-        light_figure->set_board_position(sf::Vector2i(cols, 7));
-        c_figures.push_back(light_figure);
+    //     Bishop* light_figure =new Bishop(LIGHT_FIGURE_BISHOP_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][7], c_color);
+    //     light_figure->set_board_position(sf::Vector2i(cols, 7));
+    //     c_figures.push_back(light_figure);
 
-        c_color = FigureColor::DARK;
+    //     c_color = FigureColor::DARK;
 
-        Bishop* dark_figure =new Bishop(DARK_FIGURE_BISHOP_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][0], c_color);
-        dark_figure->set_board_position(sf::Vector2i(cols, 0));
-        c_figures.push_back(dark_figure);
-    }
+    //     Bishop* dark_figure =new Bishop(DARK_FIGURE_BISHOP_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][0], c_color);
+    //     dark_figure->set_board_position(sf::Vector2i(cols, 0));
+    //     c_figures.push_back(dark_figure);
+    // }
     
-    //KNIGHTS
-    for (int cols = 1; cols <= 6; cols+=5)
-    {
-        c_color = FigureColor::LIGHT;
+    // //KNIGHTS
+    // for (int cols = 1; cols <= 6; cols+=5)
+    // {
+    //     c_color = FigureColor::LIGHT;
 
-        Knight* light_figure =new Knight(LIGHT_FIGURE_KNIGHT_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][7], c_color);
-        light_figure->set_board_position(sf::Vector2i(cols, 7));
-        c_figures.push_back(light_figure);
+    //     Knight* light_figure =new Knight(LIGHT_FIGURE_KNIGHT_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][7], c_color);
+    //     light_figure->set_board_position(sf::Vector2i(cols, 7));
+    //     c_figures.push_back(light_figure);
 
-        c_color = FigureColor::DARK;
+    //     c_color = FigureColor::DARK;
 
-        Knight* dark_figure =new Knight(DARK_FIGURE_KNIGHT_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][0], c_color);
-        dark_figure->set_board_position(sf::Vector2i(cols, 0));
-        c_figures.push_back(dark_figure);
-    }
+    //     Knight* dark_figure =new Knight(DARK_FIGURE_KNIGHT_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][0], c_color);
+    //     dark_figure->set_board_position(sf::Vector2i(cols, 0));
+    //     c_figures.push_back(dark_figure);
+    // }
 
-    //KING 
-     c_color = FigureColor::LIGHT;
+    // //KING 
+    //  c_color = FigureColor::LIGHT;
 
-    King* light_figure =new King(LIGHT_FIGURE_KING_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[4][7], c_color);
-    light_figure->set_board_position(sf::Vector2i(4, 7));
-    c_figures.push_back(light_figure);
+    // King* light_figure =new King(LIGHT_FIGURE_KING_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[4][7], c_color);
+    // light_figure->set_board_position(sf::Vector2i(4, 7));
+    // c_figures.push_back(light_figure);
 
-    c_color = FigureColor::DARK;
+    // c_color = FigureColor::DARK;
 
-    King* dark_figure =new King(DARK_FIGURE_KING_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[4][0], c_color);
-    dark_figure->set_board_position(sf::Vector2i(4, 0));
-    c_figures.push_back(dark_figure);
+    // King* dark_figure =new King(DARK_FIGURE_KING_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[4][0], c_color);
+    // dark_figure->set_board_position(sf::Vector2i(4, 0));
+    // c_figures.push_back(dark_figure);
 
-     //QUEEN 
-     c_color = FigureColor::LIGHT;
+    //  //QUEEN 
+    //  c_color = FigureColor::LIGHT;
 
-    Queen* light_figure_q =new Queen(LIGHT_FIGURE_QUEEN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[3][7], c_color);
-    light_figure_q->set_board_position(sf::Vector2i(3, 7));
-    c_figures.push_back(light_figure_q);
+    // Queen* light_figure_q =new Queen(LIGHT_FIGURE_QUEEN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[3][7], c_color);
+    // light_figure_q->set_board_position(sf::Vector2i(3, 7));
+    // c_figures.push_back(light_figure_q);
 
-    c_color = FigureColor::DARK;
+    // c_color = FigureColor::DARK;
 
-    Queen* dark_figure_q =new Queen(DARK_FIGURE_QUEEN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[3][0], c_color);
-    dark_figure_q->set_board_position(sf::Vector2i(3, 0));
-    c_figures.push_back(dark_figure_q);
+    // Queen* dark_figure_q =new Queen(DARK_FIGURE_QUEEN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[3][0], c_color);
+    // dark_figure_q->set_board_position(sf::Vector2i(3, 0));
+    // c_figures.push_back(dark_figure_q);
     
 
 
 }
     
-bool Game::is_light_move() const{return c_is_light_move;}
+
 
 sf::Vector2i Game::get_clicked_board_position(float x, float y)
 {
     int board_x = floor( (x - START_FIGURE_POS.x) / CELL_TEXTURE_SIZE.x );
     int board_y = floor( (y - START_FIGURE_POS.y) / CELL_TEXTURE_SIZE.y );
+
+    //--------------------------------
+    
+    std::cout <<"CONVERTED CLICKED POS INTO BOARD POS: ("<< board_x << " ; " << board_y << ")" <<  std::endl;
+    //--------------------------------
+
     return sf::Vector2i(board_x, board_y);
 }
 
@@ -162,8 +168,9 @@ sf::Vector2i Game::get_clicked_board_position(float x, float y)
 void Game::set_figure_pos_in_playing_field(const Figure* figure, sf::Vector2i new_position)
 {
     sf::Vector2i current_position = figure->get_board_pos();
-    c_playing_field[current_position.x-1][current_position.y-1] = FigureType::EMPTY;
-    c_playing_field[new_position.x-1][new_position.y-1] = figure->get_figure_type();
+    c_playing_field[current_position.x][current_position.y] = FigureType::EMPTY;
+    c_playing_field[new_position.x][new_position.y] = figure->get_figure_type();
+
 }
 
 
@@ -197,31 +204,40 @@ void Game::run()
 
                             for(auto figure : c_figures)
                             {
+                                      //--------------------------------
 
-                                // std::cout << "TRYING TO FIND CURRENT FIGURE ON THIS POS..." << std::endl;
+                                        std::cout << "TRYING TO FIND CURRENT FIGURE ON THIS POS..." << std::endl;
+                                      //--------------------------------
                                 
                                 current_figure_board_pos = figure->get_board_pos();
                             
-                                
-                                if(current_figure_board_pos.x == mouse_clicked.x && current_figure_board_pos.y == mouse_clicked.y &&
-                                (is_light_move() && figure->get_color() == FigureColor::LIGHT || !is_light_move() && figure->get_color() == FigureColor::DARK))
+                                c_color =figure->get_color();
+
+                                if(current_figure_board_pos.x == mouse_clicked.x && current_figure_board_pos.y == mouse_clicked.y)
                                 {
-                                    if(!figure->is_alive()) continue;
+                                    if ((c_is_light_move && (c_color == FigureColor::LIGHT)) || (!c_is_light_move && (c_color == FigureColor::DARK)))
+                                    {
+                                         if(!figure->is_alive()) continue;
 
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                                    // std::cout << "FIGURE FOUND." << std::endl;
-                                    define_figure = figure;
-                                    figure_found = true;
+                                        define_figure = figure;
+                                        figure_found = true;
 
-                                    //print move points
-                                    // std::vector<sf::Vector2f> possible_moves = define_figure->get_possible_moves();
+                                      //--------------------------------
+                                        sf::Vector2i debug_pos = define_figure->get_board_pos();
+                                        std::cout << "FIGURE FOUND" << std::endl;
+                                        std::cout << "( "<< debug_pos.x << ";" << debug_pos.y << ")." << std::endl;
+                                      //--------------------------------
 
-                                    // // need to create vector for saving new vector with cyrcles for show possible moves                                
-                                    // for(auto move_current_position : possible_moves){}
-                                    break;
+
+                                        //print move points
+                                    
+                                        break;
+                                    }
+                                    else break;
+                                   
                                 }                        
                            
-                            // std::cout << "FIGURE NOT FOUND. " << std::endl;
+                             std::cout << "FIGURE NOT FOUND. " << std::endl;
                            
                             }
                         }
@@ -230,8 +246,14 @@ void Game::run()
                             if(define_figure != nullptr)
                             {
                                 sf::Vector2i mouse_clicked = get_clicked_board_position(event.mouseButton.x,event.mouseButton.y);
+                                
+                              
 
                                 bool is_current_move = define_figure->is_current_move(mouse_clicked); 
+
+                                    //--------------------------------
+                                            std::cout << std::boolalpha << is_current_move << std::endl;
+                                    //--------------------------------
                                
                                 if(is_current_move)
                                 {
@@ -248,15 +270,22 @@ void Game::run()
                                             break;
                                         }
                                     }
-                                    set_figure_pos_in_playing_field(define_figure, mouse_clicked);
+                                    
                                     define_figure->set_board_position(mouse_clicked);
+                                    
+                                    set_figure_pos_in_playing_field(define_figure, mouse_clicked);
+                                   
+                                    
+                                    define_figure->set_playing_field(c_playing_field);
+                                    
+                                    c_is_light_move = !c_is_light_move;
 
                                 }
-                                    
+                                figure_found = false;
+                                define_figure = nullptr;
                             }
                           
-                            figure_found = false;
-                            define_figure = nullptr;
+                           
                             
                         }
 

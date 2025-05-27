@@ -31,23 +31,30 @@ class Figure
         virtual ~Figure();
 
         void set_board_position(sf::Vector2i board_position);
-        void set_pixel_position();
+
+    
         
         void sam_is_dead();
         void draw(sf::RenderWindow& window);
+        void set_playing_field(FigureType playing_field[8][8]);
 
+        
         //get
         FigureColor get_color() const; 
         FigureType get_figure_type() const;
         sf::Vector2i get_board_pos() const;
         sf::Vector2f get_pixel_pos() const;
         bool is_alive() const;
+        bool is_valid_position(int x, int y) const;
         
-        virtual bool is_current_move(sf::Vector2i mouse_clicked_pos);
-        virtual std::vector<sf::Vector2i> get_possible_moves();
+        virtual std::vector<sf::Vector2i> get_possible_moves() = 0;
+        virtual bool is_current_move(sf::Vector2i mouse_clicked_pos) = 0;
+
+    private:
+        void set_pixel_position(); 
 
 
-        void set_playing_field(const FigureType playing_field[8][8]);
+
 };
 
 #endif // FIGURE_HPP

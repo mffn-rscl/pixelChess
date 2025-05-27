@@ -2,7 +2,7 @@
 
 Bishop::~Bishop(){}
 
-std::vector<sf::Vector2f> Bishop::get_possible_moves()
+std::vector<sf::Vector2i> Bishop::get_possible_moves()
 {
 
 }

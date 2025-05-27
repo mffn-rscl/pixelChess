@@ -7,11 +7,11 @@
 #include "figures/Types.hpp"
 #include "figures/Figure.hpp"
 #include "figures/Pawn/Pawn.hpp"
-#include "figures/Rook/Rook.hpp"
-#include "figures/Bishop/Bishop.hpp"
-#include "figures/Knight/Knight.hpp"
-#include "figures/King/King.hpp"
-#include "figures/Queen/Queen.hpp"
+// #include "figures/Rook/Rook.hpp"
+// #include "figures/Bishop/Bishop.hpp"
+// #include "figures/Knight/Knight.hpp"
+// #include "figures/King/King.hpp"
+// #include "figures/Queen/Queen.hpp"
 
 class Game
 {
@@ -23,6 +23,7 @@ class Game
         FigureColor c_color;
 
         bool c_is_light_move;
+
     public:
 
         Game();
@@ -33,12 +34,12 @@ class Game
 
         void initialize_playing_field();
         void initialize_figures();
-        void set_figure_pos_in_playing_field(const Figure* figure, sf::Vector2i new_position);
+      
 
 
         //  use in Game::run():
         sf::Vector2i get_clicked_board_position(float x, float y);
+        void set_figure_pos_in_playing_field(const Figure* figure, sf::Vector2i new_position);
 
-        bool is_light_move() const;
-
+     
 };  

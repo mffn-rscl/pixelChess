@@ -34,6 +34,7 @@ void Figure::set_pixel_position()
 
 void Figure::sam_is_dead() { c_is_alive = false; }
 
+bool Figure::is_valid_position(int x, int y) const { return x >= 0 && x < 8 && y >= 0 && y < 8; }
 
 
 void Figure::draw(sf::RenderWindow& window)
@@ -41,7 +42,16 @@ void Figure::draw(sf::RenderWindow& window)
     window.draw(c_figure_s);
 }
 
-void Figure::set_playing_field(const FigureType playing_field[8][8]) {c_playing_field = playing_field;} // !
+void Figure::set_playing_field(FigureType playing_field[8][8]) 
+{
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++){ c_playing_field[i][j] = playing_field[i][j]; }
+    }
+    
+} // !
+
+
 
 
 //get
@@ -50,4 +60,6 @@ FigureType Figure::get_figure_type() const { return c_type; }
 sf::Vector2i Figure::get_board_pos() const { return c_board_position; }
 sf::Vector2f Figure::get_pixel_pos() const { return  c_pixel_position; } 
 bool Figure::is_alive() const { return c_is_alive;}
+
+
 
