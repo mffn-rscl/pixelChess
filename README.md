@@ -16,6 +16,7 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 - [] get_possible_moves for each figure
 - [] split method Game::run() into some another methods
 - [] add state pattern 
+- [] makefile
 
 ---
 <h2>Diary to_do_list:</h2> 
@@ -57,20 +58,20 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 
 ## Thursday - 15.05.25
 - [] make makefile
-- [] do interact with figures
+- [x] do interact with figures
 - [x] display another figures
 
 ![15.05.25](temp/screenshots/150525.png)
 
 ## Tuesday - 20.05.25
 - [x] bug fixing Game::run()
-- [] method is_current_move for Pawns
-- [] method get_possible_moves for Pawns
+- [x] method is_current_move for Pawns
+- [x] method get_possible_moves for Pawns
 
 ## Tuesday - 27.05.25
-- [] fix class board
-- [] method Game::run() optimization
-- [] move pawns correctly
+- [x] fix class board
+- [x] method Game::run() optimization
+- [x] move pawns correctly
 
 ## Wednesday - 28.05.25 General refactoring
 - [] pattern State Machine
