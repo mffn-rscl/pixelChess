@@ -10,12 +10,12 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 ```
 
 ---
+
 <h2>Total to_do_list:</h2>
 
-
-- [] finish figure classes  
-- [x] create new class Game
-- [] move class Board to class Game
+- [] get_possible_moves for each figure
+- [] split method Game::run() into some another methods
+- [] add state pattern 
 
 ---
 <h2>Diary to_do_list:</h2> 
