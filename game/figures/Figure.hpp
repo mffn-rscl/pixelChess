@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Types.hpp"
+#include "board/Board.hpp"
 
 class Figure
 {
@@ -18,7 +19,6 @@ class Figure
         sf::Vector2f c_pixel_position; 
 
         FigureType c_type;
-        FigureType c_playing_field[8][8];
         FigureColor c_color;
 
         bool c_is_alive;
@@ -30,14 +30,12 @@ class Figure
 
         virtual ~Figure();
 
-        void set_board_position(sf::Vector2i board_position);
+        void set_figure_position(sf::Vector2i board_position);
 
     
         
         void sam_is_dead();
         void draw(sf::RenderWindow& window);
-        void set_playing_field(FigureType playing_field[8][8]);
-
         
         //get
         FigureColor get_color() const; 
@@ -47,14 +45,9 @@ class Figure
         bool is_alive() const;
         bool is_valid_position(int x, int y) const;
         
-        virtual std::vector<sf::Vector2i> get_possible_moves() = 0;
-        virtual bool is_current_move(sf::Vector2i mouse_clicked_pos) = 0;
-
-    private:
-        void set_pixel_position(); 
-
+        virtual std::vector<sf::Vector2i> get_possible_moves(Board& board) = 0;
 
 
 };
 
-#endif // FIGURE_HPP
+#endif 

@@ -18,8 +18,7 @@ class Game
     private:
         sf::RenderWindow c_window;
         std::vector<Figure *> c_figures;
-
-        FigureType c_playing_field[8][8];
+        Board* c_board = new Board;
         FigureColor c_color;
 
         bool c_is_light_move;
@@ -31,15 +30,14 @@ class Game
         void run();
 
     private:
-
-        void initialize_playing_field();
         void initialize_figures();
-      
 
-
-        //  use in Game::run():
         sf::Vector2i get_clicked_board_position(float x, float y);
+        bool is_current_move(sf::Vector2i mouse_clicked, std::vector<sf::Vector2i> possible_moves);
         void set_figure_pos_in_playing_field(const Figure* figure, sf::Vector2i new_position);
+        void render();
+        
+     
 
      
 };  

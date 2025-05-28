@@ -16,40 +16,27 @@ Figure::Figure(const std::string& FIGURE_PATH, const sf::Vector2f CELL_TEXTURE_S
 Figure::~Figure() {}
     
 
-void Figure::set_board_position(sf::Vector2i board_position)
+void Figure::set_figure_position(sf::Vector2i board_position)
 {
     c_board_position.x = board_position.x;
     c_board_position.y = board_position.y;
-    set_pixel_position();
-}
-
-
-void Figure::set_pixel_position()
-{   
+   
     c_pixel_position.x = C_START_FIGURE_POS.x + C_CELL_TEXTURE_SIZE.x * c_board_position.x;
     c_pixel_position.y = C_START_FIGURE_POS.y + C_CELL_TEXTURE_SIZE.y * c_board_position.y;
 
     c_figure_s.setPosition(c_pixel_position.x, c_pixel_position.y);
 }
 
+
 void Figure::sam_is_dead() { c_is_alive = false; }
 
 bool Figure::is_valid_position(int x, int y) const { return x >= 0 && x < 8 && y >= 0 && y < 8; }
-
 
 void Figure::draw(sf::RenderWindow& window)
 {
     window.draw(c_figure_s);
 }
 
-void Figure::set_playing_field(FigureType playing_field[8][8]) 
-{
-    for (int i = 0; i < 8; i++)
-    {
-        for (int j = 0; j < 8; j++){ c_playing_field[i][j] = playing_field[i][j]; }
-    }
-    
-} // !
 
 
 

@@ -2,59 +2,88 @@
 
 
 
-Board::Board(const std::string& BOARD_TEXTURE_PATH, const std::string& DARK_CELL_TEXTURE_PATH, const std::string& LIGHT_CELL_TEXTURE_PATH,
-            sf::Vector2f BOARD_SIZE,sf::Vector2f CELL_SIZE,const sf::Vector2f START_BOARD_POS, const sf::Vector2f START_CELL_POS)
-            : C_BOARD_SIZE(BOARD_SIZE), C_CELL_SIZE(CELL_SIZE), C_START_BOARD_POS(START_BOARD_POS), C_START_CELL_POS(START_CELL_POS)
+Board::Board(const std::string& BOARD_TEXTURE_PATH, const sf::Vector2f BOARD_SIZE,const sf::Vector2f START_BOARD_POS)
+            : C_BOARD_SIZE(BOARD_SIZE), C_START_BOARD_POS(START_BOARD_POS)
 {
 
     if (!c_background_board_t.loadFromFile(BOARD_TEXTURE_PATH)) 
     throw std::runtime_error ("Can't load file from " + BOARD_TEXTURE_PATH + ". Check the correct file name.");
-    if (!c_dark_cell_t.loadFromFile(DARK_CELL_TEXTURE_PATH))
-    throw std::runtime_error("Can't load file from " + DARK_CELL_TEXTURE_PATH + ". Check the correct file name.");
-    if (!c_light_cell_t.loadFromFile(LIGHT_CELL_TEXTURE_PATH))
-    throw std::runtime_error("Can't load file from " + LIGHT_CELL_TEXTURE_PATH + ". Check the correct file name.");
-        
-    build_field_of_cells();
-
+   
+    c_background_board_s.setTexture(c_background_board_t);
+    c_background_board_s.setPosition(C_START_BOARD_POS);
          
 }
 
-void Board::build_field_of_cells()
+Board::Board() 
 {
-    c_cells_s.clear();
-    for (int rows = 0; rows < 8; rows++)
+    initialize_playing_field();
+}
+
+void Board::initialize_playing_field()
+{
+    c_playing_field[0][0] = FigureType::ROOK;
+    c_playing_field[0][1] = FigureType::KNIGHT;
+    c_playing_field[0][2] = FigureType::BISHOP;
+    c_playing_field[0][3] = FigureType::QUEEN;
+    c_playing_field[0][4] = FigureType::KING;
+    c_playing_field[0][5] = FigureType::BISHOP;
+    c_playing_field[0][6] = FigureType::KNIGHT;
+    c_playing_field[0][7] = FigureType::ROOK;
+
+    c_playing_field[7][0] = FigureType::ROOK;
+    c_playing_field[7][1] = FigureType::KNIGHT;
+    c_playing_field[7][2] = FigureType::BISHOP;
+    c_playing_field[7][3] = FigureType::QUEEN;
+    c_playing_field[7][4] = FigureType::KING;
+    c_playing_field[7][5] = FigureType::BISHOP;
+    c_playing_field[7][6] = FigureType::KNIGHT;
+    c_playing_field[7][7] = FigureType::ROOK;
+
+    for (int cols = 0; cols < 8; cols++) 
+    { 
+        c_playing_field[1][cols] = FigureType::PAWN; 
+        c_playing_field[6][cols] = FigureType::PAWN; 
+    }
+    for (int rows = 2; rows < 6; rows++)
     {
         for (int cols = 0; cols < 8; cols++)
         {
-            sf::Sprite cell_sprite;
-                    
-            bool  layout_board = (rows + cols) % 2 == 0; 
-
-
-            cell_sprite.setTexture((layout_board) ? c_light_cell_t : c_dark_cell_t);
-            cell_sprite.setPosition(cols * C_CELL_SIZE.x + C_START_CELL_POS.x, rows * C_CELL_SIZE.y +  C_START_CELL_POS.y);
-
-            c_cells_s.push_back(cell_sprite);   
+            c_playing_field[rows][cols] = FigureType::EMPTY;
         }
-                
     }
 }
 
-void Board::display_background_board(sf::RenderWindow& window)
+void Board::display_playing_field()
 {
-    c_background_board_s.setTexture(c_background_board_t);
-    c_background_board_s.setPosition(C_START_BOARD_POS);
+    for (int  i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            std::cout << static_cast<int>(c_playing_field[i][j]) << " ";
+        }
+        std::cout << std::endl;
+    }
+    
+}
+
+
+FigureType Board::get_figure_type(sf::Vector2i pos)
+{
+    return c_playing_field[pos.y][pos.x];
+}
+
+void Board::set_figure_type(sf::Vector2i pos, FigureType& type)
+{
+    c_playing_field[pos.y][pos.x] = type; // swapped
+    std::cout << "UPDATED PLAYING FIELD FIGURE IN POSITION(" << pos.x <<";"<< pos.y << ") : " << static_cast<int>(c_playing_field[pos.x][pos.y]) << std::endl;
+}
+
+
+void Board::draw(sf::RenderWindow& window)
+{
     window.draw(c_background_board_s);   
 }
 
-
-void Board::draw_board(sf::RenderWindow& window)
-{
-    for(const auto& cell : c_cells_s)
-    {
-        window.draw(cell);
-    }                        
-}
 
 
 

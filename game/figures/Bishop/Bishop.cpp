@@ -2,12 +2,4 @@
 
 Bishop::~Bishop(){}
 
-std::vector<sf::Vector2i> Bishop::get_possible_moves()
-{
 
-}
-
-bool Bishop::is_current_move(sf::Vector2f mouse_clicked_pos)
-{
-
-}

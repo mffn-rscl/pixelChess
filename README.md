@@ -74,8 +74,8 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 
 ## Wednesday - 28.05.25 General refactoring
 - [] pattern State Machine
-- [] refactoring class Game
-- [] refactoring class Board
+- [] refactoring class Game (in process)
+- [x] refactoring class Board
 
 ---
 
