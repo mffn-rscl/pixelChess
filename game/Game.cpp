@@ -72,9 +72,17 @@ void Game::run()
                                         std::cout << "FIGURE FOUND" << std::endl;
                                         std::cout << "( "<< debug_pos.x << ";" << debug_pos.y << ")." << std::endl;
                                       //--------------------------------
+                                        std::vector<sf::Vector2i> possible_moves = define_figure->find_moves(*c_board);                                
+                                        define_figure->set_current_moves(moves_filter(possible_moves, define_figure));                                      
+                                        
+                                        std::vector<sf::Vector2i> moves = define_figure->get_current_moves(); 
+                                       
+                                        for(auto& hint_pos : moves)
+                                        {
+                                            Hint hint(HINT_PATH, CELL_TEXTURE_SIZE, hint_pos,START_FIGURE_POS); 
+                                            c_hint.push_back(hint);
+                                        }
 
-
-                                        //print move points
                                     
                                         break;
                                     }
@@ -90,14 +98,14 @@ void Game::run()
                         {
                             if(define_figure != nullptr)
                             {
+                                c_hint.clear(); // !!!!!!!
                                 sf::Vector2i mouse_clicked = get_clicked_board_position(event.mouseButton.x,event.mouseButton.y);
-                                std::vector<sf::Vector2i> possible_moves = define_figure->get_possible_moves(*c_board);                                
+                                std::vector<sf::Vector2i> possible_moves = define_figure->find_moves(*c_board);                                
                               
                                 if(is_current_move(mouse_clicked,possible_moves)) 
                                 {
                                    
-                                    
-
+                                    figure_beated(mouse_clicked);
                                     set_figure_pos_in_playing_field(define_figure, mouse_clicked);
 
                                     define_figure->set_figure_position(mouse_clicked);
@@ -122,15 +130,60 @@ void Game::run()
 
         board.draw(c_window);
 
+        for(auto& hint : c_hint)
+        {
+            hint.draw(c_window);
+        }
+
         render(); // print figures
 
         c_window.display();
     }
 }
 
+void Game::figure_beated(sf::Vector2i mouse_clicked)
+{
+    for(auto& figure : c_figures)
+    {
+        if (figure->get_board_pos() == mouse_clicked)
+        {
+            if(! figure->is_alive()) continue;
+            figure->sam_is_dead();
+            break;
+        }
+    }
+}
 
 
+std::vector<sf::Vector2i> Game::moves_filter(std::vector<sf::Vector2i>& moves, Figure* picked_figure)
+{
+    std::vector<sf::Vector2i> filtered_moves;
+    
+   
 
+    for(auto& move : moves)
+    {
+        bool can_move = true;
+        bool found_figure = false;
+        
+        for(auto& figure : c_figures)
+        {
+            if (move == figure->get_board_pos())
+            {
+                found_figure = true;
+                
+                if(picked_figure->get_color() == figure->get_color())
+                {
+                    can_move = false;
+                }
+                break;
+            }
+            
+        }
+        if (can_move) filtered_moves.push_back(move);
+    }
+    return filtered_moves;
+}
 
 bool Game::is_current_move(sf::Vector2i mouse_clicked, std::vector<sf::Vector2i> possible_moves)
 {

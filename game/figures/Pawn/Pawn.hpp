@@ -7,6 +7,6 @@ class Pawn : public Figure
     public:
         using Figure::Figure;
         ~Pawn();
-        virtual std::vector<sf::Vector2i> get_possible_moves(Board& board);
+        virtual std::vector<sf::Vector2i> find_moves(Board& board);
 
 };  

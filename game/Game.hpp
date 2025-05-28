@@ -1,9 +1,10 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include <iostream>
 #include <cmath>
+#include <iostream>
+#include <SFML/Graphics.hpp>
 #include "core/const_values.hpp"
 #include "board/Board.hpp"
+#include "Hint/Hint.hpp"
 #include "figures/Types.hpp"
 #include "figures/Figure.hpp"
 #include "figures/Pawn/Pawn.hpp"
@@ -20,6 +21,7 @@ class Game
         std::vector<Figure *> c_figures;
         Board* c_board = new Board;
         FigureColor c_color;
+        std::vector<Hint> c_hint;
 
         bool c_is_light_move;
 
@@ -36,8 +38,9 @@ class Game
         bool is_current_move(sf::Vector2i mouse_clicked, std::vector<sf::Vector2i> possible_moves);
         void set_figure_pos_in_playing_field(const Figure* figure, sf::Vector2i new_position);
         void render();
-        
+        std::vector<sf::Vector2i> moves_filter(std::vector<sf::Vector2i>& moves, Figure* picked_figure);
+        void figure_beated(sf::Vector2i mouse_clicked);
      
 
      
-};  
+};

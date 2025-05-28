@@ -27,6 +27,8 @@ void Figure::set_figure_position(sf::Vector2i board_position)
     c_figure_s.setPosition(c_pixel_position.x, c_pixel_position.y);
 }
 
+void Figure::set_current_moves(std::vector<sf::Vector2i> moves) { c_current_moves = moves; }
+
 
 void Figure::sam_is_dead() { c_is_alive = false; }
 
@@ -42,6 +44,7 @@ void Figure::draw(sf::RenderWindow& window)
 
 
 //get
+std::vector<sf::Vector2i> Figure::get_current_moves() const { return c_current_moves; } 
 FigureColor Figure::get_color() const { return c_color; } 
 FigureType Figure::get_figure_type() const { return c_type; }
 sf::Vector2i Figure::get_board_pos() const { return c_board_position; }
