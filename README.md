@@ -4,7 +4,8 @@
 
 ```bash
 
-g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window -lsfml-system
+g++ game/main.cpp     game/Game.cpp     game/Hint/Hint.cpp     game/board/Board.cpp     game/figures/Pawn/Pawn.cpp     game/figures/Figure.cpp     -Igame     -Igame/board     -Igame/figures     -Igame/figures/Pawn     -Igame/core     -Igame/Hint     -o chess-app     -lsfml-graphics -lsfml-window -lsfml-system
+
 ./chess-app
 
 ```
@@ -14,8 +15,8 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 <h2>Total to_do_list:</h2>
 
 - [] get_possible_moves for each figure
-- [] split method Game::run() into some another methods
-- [] add state pattern 
+- [x] split method Game::run() into some another methods
+- [x] add state pattern 
 - [] makefile
 
 ---
@@ -78,11 +79,20 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 - [] refactoring class Game 
 - [x] refactoring class Board
 
-## Wednesday - 29.05.25 General refactoring done
+## Thursday - 29.05.25 General refactoring done
 - [x] State pattern  
 - [x] refactoring class Game 
 
 Added enum class Action, which used for different game conditions. Refactored class Game(splited method Game::run() into some new methods)
 code became more readable
+
+
+## Friday - 30.05.25
+
+- [] finish find_moves() for Pawn
+- [] makefile
+- [] get_possible_moves for each figure
+- [] fix hint render
+
 ---
 
