@@ -18,12 +18,22 @@ class Game
 {
     private:
         sf::RenderWindow c_window;
+        
+        //render elements
         std::vector<Figure *> c_figures;
-        Board* c_board = new Board;
-        FigureColor c_color;
         std::vector<Hint> c_hint;
 
+        //moves
+        sf::Vector2i c_mouse_clicked;
+        std::vector<sf::Vector2i> c_current_figure_moves;
+        Board* c_board = new Board;
+        
+        //game behavior
+        Action c_action;
+        FigureColor c_color;
         bool c_is_light_move;
+
+        Figure* c_define_figure = nullptr;
 
     public:
 
@@ -32,15 +42,31 @@ class Game
         void run();
 
     private:
+     
         void initialize_figures();
+        void initialize_hints();
+
 
         sf::Vector2i get_clicked_board_position(float x, float y);
-        bool is_current_move(sf::Vector2i mouse_clicked, std::vector<sf::Vector2i> possible_moves);
-        void set_figure_pos_in_playing_field(const Figure* figure, sf::Vector2i new_position);
-        void render();
-        std::vector<sf::Vector2i> moves_filter(std::vector<sf::Vector2i>& moves, Figure* picked_figure);
-        void figure_beated(sf::Vector2i mouse_clicked);
-     
+        sf::Vector2i get_mouse_clicked() const;     
 
-     
+
+        bool is_current_move(std::vector<sf::Vector2i> possible_moves);
+        void set_figure_pos_in_playing_field(const Figure* figure, sf::Vector2i new_position);
+        std::vector<sf::Vector2i> moves_filter(std::vector<sf::Vector2i>& moves, Figure* picked_figure);
+       
+       
+        void figure_beated();
+       
+        void render();
+
+        void handle_events();
+        void left_mouse_clicked(const sf::Event& event);
+        void figure_picking();
+        void figure_placing();
+
+        //setters
+        void set_define_figure(Figure* figure);
+        void set_is_light_move(bool set);
+        void set_action(Action action);
 };

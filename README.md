@@ -74,9 +74,15 @@ g++ main.cpp board.cpp path_size.cpp -o chess-app -lsfml-graphics -lsfml-window 
 - [x] move pawns correctly
 
 ## Wednesday - 28.05.25 General refactoring
-- [] pattern State Machine
-- [] refactoring class Game (in process)
+- [] State pattern  
+- [] refactoring class Game 
 - [x] refactoring class Board
 
+## Wednesday - 29.05.25 General refactoring done
+- [x] State pattern  
+- [x] refactoring class Game 
+
+Added enum class Action, which used for different game conditions. Refactored class Game(splited method Game::run() into some new methods)
+code became more readable
 ---
 

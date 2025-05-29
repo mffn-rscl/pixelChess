@@ -12,8 +12,8 @@ Figure::Figure(const std::string& FIGURE_PATH, const sf::Vector2f CELL_TEXTURE_S
     c_is_alive = true;
 }
 
-
 Figure::~Figure() {}
+
     
 
 void Figure::set_figure_position(sf::Vector2i board_position)
@@ -28,7 +28,6 @@ void Figure::set_figure_position(sf::Vector2i board_position)
 }
 
 void Figure::set_current_moves(std::vector<sf::Vector2i> moves) { c_current_moves = moves; }
-
 
 void Figure::sam_is_dead() { c_is_alive = false; }
 

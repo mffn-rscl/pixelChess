@@ -32,11 +32,10 @@ class Figure
 
         void set_figure_position(sf::Vector2i board_position);
         void set_current_moves(std::vector<sf::Vector2i> moves);
-
-    
-        
         void sam_is_dead();
         void draw(sf::RenderWindow& window);
+        virtual std::vector<sf::Vector2i> find_moves(Board& board) = 0;
+        
         
         //get
         FigureColor get_color() const; 
@@ -47,7 +46,6 @@ class Figure
         bool is_alive() const;
         bool is_valid_position(int x, int y) const;
         
-        virtual std::vector<sf::Vector2i> find_moves(Board& board) = 0;
 
 
 };

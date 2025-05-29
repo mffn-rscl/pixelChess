@@ -53,6 +53,7 @@ void Board::initialize_playing_field()
     }
 }
 
+// logs
 void Board::display_playing_field()
 {
     for (int  i = 0; i < 8; i++)
