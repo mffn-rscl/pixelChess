@@ -3,7 +3,7 @@
 #define FIGURE_HPP
 
 #include <SFML/Graphics.hpp>
-#include "Types.hpp"
+#include "core/Types.hpp"
 #include "board/Board.hpp"
 
 class Figure

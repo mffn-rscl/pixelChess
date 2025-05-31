@@ -5,7 +5,7 @@
 #include "core/const_values.hpp"
 #include "board/Board.hpp"
 #include "Hint/Hint.hpp"
-#include "figures/Types.hpp"
+#include "core/Types.hpp"
 #include "figures/Figure.hpp"
 #include "figures/Pawn/Pawn.hpp"
 #include "figures/Rook/Rook.hpp"
