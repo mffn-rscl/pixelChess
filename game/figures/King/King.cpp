@@ -12,14 +12,14 @@ std::vector<sf::Vector2i> King::find_moves(Board& board)
 
     std::vector<sf::Vector2i> directions
     {
-        {-1, 1},
-        {0, 1},
-        {1, 1},
-        {-1, 0},
-        {0, 1},
-        {1, -1},
+        {-1, -1},
         {0, -1},
-        {-1, -1}
+        {1, -1},
+        {1, 0},
+        {1, 1},
+        {0, 1},
+        {-1, 1},
+        {-1, 0}
     };
 
     for(auto& direction : directions)
