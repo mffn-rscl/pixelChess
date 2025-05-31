@@ -95,5 +95,14 @@ code became more readable
 - [] fix hint render
 
 ![31.05.25](temp/screenshots/31-05-25.gif)
+
+## Sunday - 01.06.25
+
+- [] makefile
+- [] fix hint render
+- [] optimize Game::initialize_figures()
+- [] class MoveExeptions
+- [] class GameState
+
 ---
 
