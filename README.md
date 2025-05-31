@@ -14,7 +14,7 @@ g++ game/main.cpp     game/Game.cpp     game/Hint/Hint.cpp     game/board/Board.
 
 <h2>General to_do_list:</h2>
 
-- [] get_possible_moves for each figure
+- [x] get_possible_moves for each figure
 - [x] split method Game::run() into some another methods
 - [x] add state pattern 
 - [] makefile
