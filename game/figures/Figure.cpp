@@ -9,7 +9,6 @@ Figure::Figure(const std::string& FIGURE_PATH, const sf::Vector2f CELL_TEXTURE_S
     throw std::runtime_error ("Can't load file from " + FIGURE_PATH + ". Check the correct file name.");
     c_figure_s.setTexture(c_figure_t);
 
-    c_is_alive = true;
 }
 
 Figure::~Figure() {}
@@ -29,8 +28,6 @@ void Figure::set_figure_position(sf::Vector2i board_position)
 
 void Figure::set_current_moves(std::vector<sf::Vector2i> moves) { c_current_moves = moves; }
 
-void Figure::sam_is_dead() { c_is_alive = false; }
-
 bool Figure::is_valid_position(int x, int y) const { return x >= 0 && x < 8 && y >= 0 && y < 8; }
 
 void Figure::draw(sf::RenderWindow& window)
@@ -48,7 +45,6 @@ FigureColor Figure::get_color() const { return c_color; }
 FigureType Figure::get_figure_type() const { return c_type; }
 sf::Vector2i Figure::get_board_pos() const { return c_board_position; }
 sf::Vector2f Figure::get_pixel_pos() const { return  c_pixel_position; } 
-bool Figure::is_alive() const { return c_is_alive;}
 
 
 

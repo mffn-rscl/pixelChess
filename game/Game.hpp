@@ -8,11 +8,11 @@
 #include "figures/Types.hpp"
 #include "figures/Figure.hpp"
 #include "figures/Pawn/Pawn.hpp"
-// #include "figures/Rook/Rook.hpp"
-// #include "figures/Bishop/Bishop.hpp"
-// #include "figures/Knight/Knight.hpp"
-// #include "figures/King/King.hpp"
-// #include "figures/Queen/Queen.hpp"
+#include "figures/Rook/Rook.hpp"
+#include "figures/Bishop/Bishop.hpp"
+#include "figures/Knight/Knight.hpp"
+#include "figures/King/King.hpp"
+#include "figures/Queen/Queen.hpp"
 
 class Game
 {

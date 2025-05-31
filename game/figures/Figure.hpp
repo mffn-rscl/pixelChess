@@ -21,7 +21,6 @@ class Figure
         FigureType c_type;
         FigureColor c_color;
 
-        bool c_is_alive;
 
 
 
@@ -32,7 +31,6 @@ class Figure
 
         void set_figure_position(sf::Vector2i board_position);
         void set_current_moves(std::vector<sf::Vector2i> moves);
-        void sam_is_dead();
         void draw(sf::RenderWindow& window);
         virtual std::vector<sf::Vector2i> find_moves(Board& board) = 0;
         
@@ -43,7 +41,6 @@ class Figure
         sf::Vector2i get_board_pos() const;
         sf::Vector2f get_pixel_pos() const;
         std::vector<sf::Vector2i> get_current_moves() const; 
-        bool is_alive() const;
         bool is_valid_position(int x, int y) const;
         
 

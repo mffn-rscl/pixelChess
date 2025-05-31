@@ -87,12 +87,13 @@ Added enum class Action, which used for different game conditions. Refactored cl
 code became more readable
 
 
-## Friday - 30.05.25
+## Saturday - 31.05.25
 
-- [] finish find_moves() for Pawn
+- [x] finish find_moves() for Pawn
 - [] makefile
-- [] get_possible_moves for each figure
+- [x] get_possible_moves for each figure
 - [] fix hint render
 
+![31.05.25](temp/screenshots/31-05-25.gif)
 ---
 

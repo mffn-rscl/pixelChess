@@ -60,79 +60,80 @@ void Game::initialize_figures()
         c_figures.push_back(dark_figure);
     }
    
-    // //ROOKS
-    // for (int cols = 0; cols < 2; cols++)
-    // {
-    //     c_color = FigureColor::LIGHT;
+    //ROOKS
+    for (int cols = 0; cols < 2; cols++)
+    {
+        c_color = FigureColor::LIGHT;
 
-    //     Rook* light_figure =new Rook(LIGHT_FIGURE_ROOK_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols*7][7], c_color);
-    //     light_figure->set_board_position(sf::Vector2i(cols*7, 7));
-    //     c_figures.push_back(light_figure);
+        Rook* light_figure = new Rook(LIGHT_FIGURE_ROOK_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, FigureType::PAWN, c_color);
 
-    //     c_color = FigureColor::DARK;
+        light_figure->set_figure_position(sf::Vector2i(cols*7, 7));
+        c_figures.push_back(light_figure);
 
-    //     Rook* dark_figure =new Rook(DARK_FIGURE_ROOK_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols*7][0], c_color);
-    //     dark_figure->set_board_position(sf::Vector2i(cols*7, 0));
-    //     c_figures.push_back(dark_figure);
-    // }
+        c_color = FigureColor::DARK;
 
-    // //BISHOPS
-    // for (int cols = 2; cols <= 5; cols+=3)
-    // {
-    //     c_color = FigureColor::LIGHT;
+        Rook* dark_figure =new Rook(DARK_FIGURE_ROOK_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, FigureType::ROOK, c_color);
+        dark_figure->set_figure_position(sf::Vector2i(cols*7, 0));
+        c_figures.push_back(dark_figure);
+    }
 
-    //     Bishop* light_figure =new Bishop(LIGHT_FIGURE_BISHOP_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][7], c_color);
-    //     light_figure->set_board_position(sf::Vector2i(cols, 7));
-    //     c_figures.push_back(light_figure);
+    //BISHOPS
+    for (int cols = 2; cols <= 5; cols+=3)
+    {
+        c_color = FigureColor::LIGHT;
 
-    //     c_color = FigureColor::DARK;
+        Bishop* light_figure =new Bishop(LIGHT_FIGURE_BISHOP_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, FigureType::BISHOP, c_color);
+        light_figure->set_figure_position(sf::Vector2i(cols, 7));
+        c_figures.push_back(light_figure);
 
-    //     Bishop* dark_figure =new Bishop(DARK_FIGURE_BISHOP_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][0], c_color);
-    //     dark_figure->set_board_position(sf::Vector2i(cols, 0));
-    //     c_figures.push_back(dark_figure);
-    // }
+        c_color = FigureColor::DARK;
+
+        Bishop* dark_figure =new Bishop(DARK_FIGURE_BISHOP_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, FigureType::BISHOP, c_color);
+        dark_figure->set_figure_position(sf::Vector2i(cols, 0));
+        c_figures.push_back(dark_figure);
+    }
     
-    // //KNIGHTS
-    // for (int cols = 1; cols <= 6; cols+=5)
-    // {
-    //     c_color = FigureColor::LIGHT;
+    //KNIGHTS
+    for (int cols = 1; cols <= 6; cols+=5)
+    {
+        c_color = FigureColor::LIGHT;
 
-    //     Knight* light_figure =new Knight(LIGHT_FIGURE_KNIGHT_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][7], c_color);
-    //     light_figure->set_board_position(sf::Vector2i(cols, 7));
-    //     c_figures.push_back(light_figure);
+        Knight* light_figure =new Knight(LIGHT_FIGURE_KNIGHT_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, FigureType::KNIGHT, c_color);
+        light_figure->set_figure_position(sf::Vector2i(cols, 7));
+        c_figures.push_back(light_figure);
 
-    //     c_color = FigureColor::DARK;
+        c_color = FigureColor::DARK;
 
-    //     Knight* dark_figure =new Knight(DARK_FIGURE_KNIGHT_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[cols][0], c_color);
-    //     dark_figure->set_board_position(sf::Vector2i(cols, 0));
-    //     c_figures.push_back(dark_figure);
-    // }
+        Knight* dark_figure =new Knight(DARK_FIGURE_KNIGHT_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, FigureType::KNIGHT, c_color);
+        dark_figure->set_figure_position(sf::Vector2i(cols, 0));
+        c_figures.push_back(dark_figure);
+    }
 
-    // //KING 
-    //  c_color = FigureColor::LIGHT;
+    //KING 
+     c_color = FigureColor::LIGHT;
 
-    // King* light_figure =new King(LIGHT_FIGURE_KING_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[4][7], c_color);
-    // light_figure->set_board_position(sf::Vector2i(4, 7));
-    // c_figures.push_back(light_figure);
+    King* light_figure =new King(LIGHT_FIGURE_KING_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, FigureType::KING, c_color);
+    light_figure->set_figure_position(sf::Vector2i(4, 7));
+    c_figures.push_back(light_figure);
 
-    // c_color = FigureColor::DARK;
+    c_color = FigureColor::DARK;
 
-    // King* dark_figure =new King(DARK_FIGURE_KING_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[4][0], c_color);
-    // dark_figure->set_board_position(sf::Vector2i(4, 0));
-    // c_figures.push_back(dark_figure);
+    King* dark_figure =new King(DARK_FIGURE_KING_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, FigureType::KING, c_color);
+    dark_figure->set_figure_position(sf::Vector2i(4, 0));
+    c_figures.push_back(dark_figure);
 
-    //  //QUEEN 
-    //  c_color = FigureColor::LIGHT;
+     //QUEEN 
+     c_color = FigureColor::LIGHT;
 
-    // Queen* light_figure_q =new Queen(LIGHT_FIGURE_QUEEN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[3][7], c_color);
-    // light_figure_q->set_board_position(sf::Vector2i(3, 7));
-    // c_figures.push_back(light_figure_q);
+    Queen* light_figure_q =new Queen(LIGHT_FIGURE_QUEEN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, FigureType::QUEEN, c_color);
+    light_figure_q->set_figure_position(sf::Vector2i(3, 7));
+    c_figures.push_back(light_figure_q);
 
-    // c_color = FigureColor::DARK;
+    c_color = FigureColor::DARK;
 
-    // Queen* dark_figure_q =new Queen(DARK_FIGURE_QUEEN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, c_playing_field[3][0], c_color);
-    // dark_figure_q->set_board_position(sf::Vector2i(3, 0));
-    // c_figures.push_back(dark_figure_q);
+    Queen* dark_figure_q =new Queen(DARK_FIGURE_QUEEN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, FigureType::QUEEN, c_color);
+    dark_figure_q->set_figure_position(sf::Vector2i(3, 0));
+    c_figures.push_back(dark_figure_q);
     
 
 
@@ -275,15 +276,15 @@ void Game::set_figure_pos_in_playing_field(const Figure* figure, sf::Vector2i ne
 //display
 void Game::render()
 {
-   
-    for(auto figure : c_figures)
-    {
-            if(figure->is_alive()) figure->draw(c_window);
-    }
     for(auto& hint : c_hint)
     {
         hint.draw(c_window);
     }
+    for(auto figure : c_figures)
+    {
+        figure->draw(c_window);
+    }
+   
 
 }
 
