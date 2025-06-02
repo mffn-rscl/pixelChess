@@ -96,13 +96,12 @@ code became more readable
 
 ![31.05.25](temp/screenshots/31-05-25.gif)
 
-## Sunday - 01.06.25
-
-- [] makefile
-- [] fix hint render
-- [] optimize Game::initialize_figures()
-- [] class MoveExeptions
-- [] class GameState
-
+## Tuesday - 03.06.25
+- [] check/mate/draw logic
+- [] en passant for Pawns
+- [] last cell for Pawns
+- [] castling
+- [] fix hints rendering
+- [] makefile  
 ---
 
