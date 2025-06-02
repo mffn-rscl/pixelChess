@@ -12,18 +12,16 @@ enum class FigureType
     
 };
 
-enum class GameState //draft
-{
-    NORMAL,
-    CHECK,
-    CHECKMATE,
-};
 
-enum class Action
+
+enum class GameState
 {
     ACTION_EXPECTED,
     FIGURE_PICKING,
-    FIGURE_PLACING
+    FIGURE_PLACING,
+    CHECK,
+    CHECKMATE,
+    DRAW
 };
 
 enum class FigureColor

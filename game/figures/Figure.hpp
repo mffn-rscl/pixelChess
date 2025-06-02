@@ -15,6 +15,8 @@ class Figure
         sf::Texture c_figure_t;
         sf::Sprite c_figure_s;
 
+        bool c_is_moved;
+
         sf::Vector2i c_board_position; 
         sf::Vector2f c_pixel_position; 
         std::vector<sf::Vector2i> c_current_moves;
@@ -29,6 +31,7 @@ class Figure
 
         virtual ~Figure();
 
+        void set_is_moved(bool set);
         void set_figure_position(sf::Vector2i board_position);
         void set_current_moves(std::vector<sf::Vector2i> moves);
         void draw(sf::RenderWindow& window);
@@ -36,6 +39,7 @@ class Figure
         
         
         //get
+        
         FigureColor get_color() const; 
         FigureType get_figure_type() const;
         sf::Vector2i get_board_pos() const;
@@ -47,4 +51,4 @@ class Figure
 
 };
 
-#endif 
+#endif

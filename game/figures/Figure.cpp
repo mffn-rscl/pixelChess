@@ -9,6 +9,8 @@ Figure::Figure(const std::string& FIGURE_PATH, const sf::Vector2f CELL_TEXTURE_S
     throw std::runtime_error ("Can't load file from " + FIGURE_PATH + ". Check the correct file name.");
     c_figure_s.setTexture(c_figure_t);
 
+    set_is_moved(false);
+
 }
 
 Figure::~Figure() {}
@@ -36,6 +38,7 @@ void Figure::draw(sf::RenderWindow& window)
 }
 
 
+void Figure::set_is_moved(bool set) { c_is_moved = set; }
 
 
 

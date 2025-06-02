@@ -24,12 +24,13 @@ class Game
         std::vector<Hint> c_hint;
 
         //moves
+       
         sf::Vector2i c_mouse_clicked;
         std::vector<sf::Vector2i> c_current_figure_moves;
         Board* c_board = new Board;
         
         //game behavior
-        Action c_action;
+        GameState c_state;
         FigureColor c_color;
         bool c_is_light_move;
 
@@ -65,8 +66,15 @@ class Game
         void figure_picking();
         void figure_placing();
 
+        //move exeptions
+        Figure* find_king(); //find king
+        std::vector<Figure* > find_attacking_figures(Figure* king);
+        std::vector<Figure* > find_defending_figures();
+
         //setters
         void set_define_figure(Figure* figure);
         void set_is_light_move(bool set);
-        void set_action(Action action);
+        void set_game_state(GameState state);
+        void define_current_figure_moves(Figure* figure);
+
 };
