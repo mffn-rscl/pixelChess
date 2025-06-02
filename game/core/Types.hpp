@@ -1,5 +1,4 @@
 #pragma once
-
 enum class FigureType
 {
     EMPTY,
@@ -14,11 +13,16 @@ enum class FigureType
 
 
 
-enum class GameState
+enum class Action
 {
     ACTION_EXPECTED,
     FIGURE_PICKING,
-    FIGURE_PLACING,
+    FIGURE_PLACING
+};
+
+enum class GameState
+{
+    NORMAL,
     CHECK,
     CHECKMATE,
     DRAW

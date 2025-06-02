@@ -1,9 +1,12 @@
 #include "Game.hpp"
 Game::Game() : c_window(sf::VideoMode(1920, 1080), "Chess")
 {
+    c_board = new Board;
+
     initialize_figures();
     set_is_light_move(true);
-    set_game_state(GameState::ACTION_EXPECTED);
+    set_game_state(GameState::NORMAL);
+    set_action(Action::ACTION_EXPECTED);
 }
 
 Game::~Game()
@@ -13,23 +16,6 @@ Game::~Game()
         delete figure;
     }
     delete c_board;
-}
-
-void Game::run()
-{
-    Board board(BOARD_TEXTURE_PATH,BOARD_TEXTURE_SIZE,START_BOARD_POS);
-
-    while (c_window.isOpen()) 
-    {
-        c_window.clear(sf::Color(200,230,247));
-
-        handle_events();
-
-        board.draw(c_window); // move to render()
-        render(); 
-
-        c_window.display();
-    }
 }
 
 //initialization
@@ -139,12 +125,65 @@ void Game::initialize_figures()
 
 }
 
+//display
+void Game::render()
+{
+    for(auto& hint : c_hint)
+    {
+        hint.draw(c_window);
+    }
+    for(auto figure : c_figures)
+    {
+        figure->draw(c_window);
+    }
+   
+
+}
+
 //setters
 void Game::set_is_light_move(bool set){ c_is_light_move = set; }
 
 void Game::set_game_state(GameState state){ c_state = state; }
 
 void Game::set_define_figure(Figure* figure) {c_define_figure = figure;}
+        
+void Game::set_action(Action action) {c_action = action;}
+
+//update playing board
+void Game::set_figure_pos_in_playing_field(const Figure* figure, sf::Vector2i new_position) 
+{
+    FigureType type;
+    
+    sf::Vector2i current_position = figure->get_board_pos();
+
+    type = figure->get_figure_type();
+    c_board->set_figure_type(new_position, type);
+
+    type = FigureType::EMPTY;
+    c_board->set_figure_type(current_position, type);
+
+    c_board->display_playing_field();
+    
+}
+
+
+
+void Game::run()
+{
+    Board board(BOARD_TEXTURE_PATH,BOARD_TEXTURE_SIZE,START_BOARD_POS);
+
+    while (c_window.isOpen()) 
+    {
+        c_window.clear(sf::Color(200,230,247));
+
+        handle_events();
+
+        board.draw(c_window); // move to render()
+        render(); 
+
+        c_window.display();
+    }
+}
 
 //events
 void Game::handle_events()
@@ -155,7 +194,7 @@ void Game::handle_events()
             if (event.type == sf::Event::Closed) c_window.close();
             
         
-            if (event.type == sf::Event::MouseButtonPressed)
+            if (event.type == sf::Event::MouseButtonPressed && (c_state != GameState::CHECKMATE || c_state != GameState::CHECKMATE))
             {
                 left_mouse_clicked(event);
             }
@@ -169,43 +208,27 @@ void Game::left_mouse_clicked(const sf::Event& event)
     
     c_mouse_clicked = get_clicked_board_position(event.mouseButton.x,event.mouseButton.y);
 
-    switch(c_state)
+    switch(c_action)
     {
-        case GameState::ACTION_EXPECTED:
-            set_game_state(GameState::FIGURE_PICKING);
+        case Action::ACTION_EXPECTED:
+            set_action(Action::FIGURE_PICKING);
             [[fallthrough]]; 
 
-        case GameState::FIGURE_PICKING:
+        case Action::FIGURE_PICKING:
         figure_picking();
         break;
 
-        case GameState::FIGURE_PLACING:
+        case Action::FIGURE_PLACING:
         figure_placing();
         break;
 
-        case GameState::CHECK:
-            break;
-
-        case GameState::CHECKMATE:
-            break;  
         
-        case GameState::DRAW:
-            break;
 
 
     }
 
 }
 
-
-//picking/placing figure
-sf::Vector2i Game::get_clicked_board_position(float x, float y)
-{
-    int board_x = floor( (x - START_FIGURE_POS.x) / CELL_TEXTURE_SIZE.x );
-    int board_y = floor( (y - START_FIGURE_POS.y) / CELL_TEXTURE_SIZE.y );
-
-    return sf::Vector2i(board_x, board_y);
-}
 
 void Game::figure_picking()
 {
@@ -219,18 +242,28 @@ void Game::figure_picking()
         {
             if ((c_is_light_move && (c_color == FigureColor::LIGHT)) || (!c_is_light_move && (c_color == FigureColor::DARK)))
             {
-
-
-                define_current_figure_moves(figure);
-                
+               set_define_figure(figure);
+               
+                switch (c_state)
+                {
+                    case GameState::NORMAL:
+                        set_define_figure(figure);
+                        normal_state_figure_picking();
+                        break;
+                    
+                    case GameState::CHECK:
+                        check_state_figure_picking(figure);
+                        break;
+                }
                 initialize_hints();                            
 
-                set_game_state(GameState::FIGURE_PLACING);
-                break;
+               
+               
+                
             }
             else // if figure color != color move turn
             {
-                set_game_state(GameState::ACTION_EXPECTED);
+                set_action(Action::ACTION_EXPECTED);
                 break;
             } 
         }                        
@@ -254,45 +287,234 @@ void Game::figure_placing()
 
     }
     c_define_figure = nullptr;
-    set_game_state(GameState::ACTION_EXPECTED);
 
+    //check if c_state == check after move
+    Figure* king = find_king();
+    std::vector<Figure* > after_move_checker = find_attacking_figures(king);
+    set_game_state((after_move_checker.empty()) ? GameState::NORMAL : GameState::CHECK);
+    set_action(Action::ACTION_EXPECTED);
+
+    std::cout <<"GAME STATE: " << static_cast<int>(c_state) << std::endl;
 }
 
 
-//update playing board
-void Game::set_figure_pos_in_playing_field(const Figure* figure, sf::Vector2i new_position) 
+
+bool Game::is_current_move(std::vector<sf::Vector2i> possible_moves)
 {
-    FigureType type;
+    if (possible_moves.empty()) return false;
     
-    sf::Vector2i current_position = figure->get_board_pos();
-
-    type = figure->get_figure_type();
-    c_board->set_figure_type(new_position, type);
-
-    type = FigureType::EMPTY;
-    c_board->set_figure_type(current_position, type);
-
-    c_board->display_playing_field();
-    
+    for(const auto& move : possible_moves)
+    {
+        if (move == c_mouse_clicked) return true;
+    }
+    return false;
 }
 
-//display
-void Game::render()
+void Game::figure_beated()
 {
-    for(auto& hint : c_hint)
+    for(auto figure = c_figures.begin(); figure != c_figures.end(); figure++)
     {
-        hint.draw(c_window);
+        if ((*figure)->get_board_pos() == c_mouse_clicked)
+        {
+            delete *figure;
+            c_figures.erase(figure);
+            break;
+        }
+        
     }
-    for(auto figure : c_figures)
-    {
-        figure->draw(c_window);
-    }
-   
-
 }
 
 
-// move methods
+//picking/placing figure
+sf::Vector2i Game::get_clicked_board_position(float x, float y)
+{
+    int board_x = floor( (x - START_FIGURE_POS.x) / CELL_TEXTURE_SIZE.x );
+    int board_y = floor( (y - START_FIGURE_POS.y) / CELL_TEXTURE_SIZE.y );
+
+    return sf::Vector2i(board_x, board_y);
+}
+
+void Game::normal_state_figure_picking()
+{
+    if (!is_figure_protecting())
+    {
+        c_current_figure_moves = c_define_figure->find_moves(*c_board);  //finds all moves on board 
+
+        c_define_figure->set_current_moves(moves_filter(c_current_figure_moves, c_define_figure)); // defines current moves                                   
+
+        c_current_figure_moves = c_define_figure->get_current_moves(); // save current moves
+
+
+        set_action(Action::FIGURE_PLACING);
+    }
+
+    
+}
+
+
+/*-----------------< CHECK METHODS >-----------------*/
+/*-----------------< CHECK METHODS >-----------------*/
+bool Game::is_check_mate(std::vector<sf::Vector2i> protective_moves)
+{
+    Figure* king = find_king();
+    set_define_figure(king);
+    c_current_figure_moves = c_define_figure->find_moves(*c_board);  //finds all moves on board 
+
+    c_define_figure->set_current_moves(moves_filter(c_current_figure_moves, c_define_figure)); // defines current moves                                   
+    
+    c_current_figure_moves = c_define_figure->get_current_moves(); // save current moves
+    if (protective_moves.empty())
+    {
+        if (c_current_figure_moves.empty())
+        {
+            return true;
+        }
+        
+    }
+    c_define_figure = nullptr;
+    return false;
+    
+}
+
+
+void Game::check_state_figure_picking(Figure* figure)
+{
+    std::vector<sf::Vector2i> protective_moves = find_protective_moves(figure);
+    if (is_check_mate(protective_moves))
+    {
+        set_game_state(GameState::CHECKMATE);
+        return;
+    }
+    
+    if(protective_moves.empty())
+    {
+       set_action(Action::ACTION_EXPECTED);
+        c_define_figure = nullptr;
+    } 
+    else
+    {
+        set_define_figure(figure); 
+        set_action(Action::FIGURE_PLACING);
+        c_current_figure_moves = protective_moves;
+    }
+        
+}
+
+std::vector<sf::Vector2i> Game::find_protective_moves(Figure* figure) // fix
+{
+    std::vector<sf::Vector2i> protective_moves;
+
+    Figure* king = find_king();
+    sf::Vector2i king_pos = king->get_board_pos();
+
+    auto figure_moves = figure->find_moves(*c_board);
+    
+    auto figures_attacked = find_attacking_figures(king);
+
+    if (figures_attacked.size() > 1) return protective_moves; // double check can deny only king
+    
+
+    for(auto& figure_attacked : figures_attacked)
+    {
+        std::vector<sf::Vector2i> figure_attacked_moves = figure_attacked->find_moves(*c_board);
+        for(auto& figure_attacked_move : figure_attacked_moves)
+        {
+            for(auto& move : figure_moves)
+            {
+                if (move != king_pos && move == figure_attacked_move)
+                {
+                    protective_moves.push_back(move);
+                }
+                if (figure_attacked->get_board_pos() == move)
+                {
+                    protective_moves.push_back(move);
+                    break;
+                }
+            }
+            
+        
+        }
+       
+        
+    }
+    return protective_moves;
+}
+
+
+Figure* Game::find_king()
+{
+    for(auto& figure : c_figures)
+    {
+        if (figure->get_figure_type() == FigureType::KING)
+        {
+            if (c_is_light_move && figure->get_color() == FigureColor::LIGHT || 
+            !c_is_light_move && figure->get_color() == FigureColor::DARK)
+            {
+                return figure;
+            }
+        }
+        
+    }
+    return nullptr;
+}
+
+std::vector<Figure* > Game::find_attacking_figures(const Figure* king)
+{
+    std::vector<Figure* > attacked_figures;
+
+    sf::Vector2i king_pos = king->get_board_pos(); 
+    for(auto& figure : c_figures)
+    {
+        if (king->get_color() != figure->get_color())
+        {
+            std::vector<sf::Vector2i> attacked_moves = figure->find_moves(*c_board);
+
+            for(auto& move : attacked_moves)
+            {
+                if (king_pos == move)
+                {
+                    attacked_figures.push_back(figure);
+                    break;
+                }
+                
+            }
+        }
+        
+    }
+    return attacked_figures;
+}
+
+
+
+
+bool Game::is_figure_protecting()
+{
+    const Figure* king = find_king();
+    sf::Vector2i king_pos = king->get_board_pos();
+    sf::Vector2i define_figure_pos = c_define_figure->get_board_pos();
+    FigureType figure_type = FigureType::EMPTY;
+    c_board->set_figure_type(define_figure_pos, figure_type);
+
+    std::vector<Figure* > danger_figures = find_attacking_figures(king);
+
+    figure_type = c_define_figure->get_figure_type();
+    c_board->set_figure_type(define_figure_pos, figure_type);
+
+    if (!danger_figures.empty())
+    {
+        set_action(Action::ACTION_EXPECTED);
+        return true;
+    }
+
+    return false;
+    
+}
+/*-----------------< CHECK METHODS >-----------------*/
+/*-----------------< CHECK METHODS >-----------------*/
+
+
+
+
 std::vector<sf::Vector2i> Game::moves_filter(std::vector<sf::Vector2i>& moves, Figure* picked_figure)
 {
     std::vector<sf::Vector2i> filtered_moves;
@@ -347,60 +569,4 @@ std::vector<sf::Vector2i> Game::moves_filter(std::vector<sf::Vector2i>& moves, F
     return filtered_moves;
 }
 
-bool Game::is_current_move(std::vector<sf::Vector2i> possible_moves)
-{
-    for(const auto& move : possible_moves)
-    {
-        if (move == c_mouse_clicked) return true;
-    }
-    return false;
-}
 
-void Game::figure_beated()
-{
-    for(auto figure = c_figures.begin(); figure != c_figures.end(); figure++)
-    {
-        if ((*figure)->get_board_pos() == c_mouse_clicked)
-        {
-            delete *figure;
-            c_figures.erase(figure);
-            break;
-        }
-        
-    }
-}
-
-void Game::define_current_figure_moves(Figure* figure)
-{
-    set_define_figure(figure);
-
-    c_current_figure_moves = c_define_figure->find_moves(*c_board);  //finds all moves on board 
-
-    c_define_figure->set_current_moves(moves_filter(c_current_figure_moves, c_define_figure)); // defines current moves                                   
-    
-    c_current_figure_moves = c_define_figure->get_current_moves(); // save current moves
-}
-//check state
-Figure* Game::find_king()
-{
-    for(auto& figure : c_figures)
-    {
-        if (figure->get_figure_type() == FigureType::KING)
-        {
-            if (c_is_light_move && figure->get_color() == FigureColor::LIGHT || 
-            !c_is_light_move && figure->get_color() == FigureColor::DARK)
-            {
-                return figure;
-            }
-        }
-        
-    }
-}
-std::vector<Figure* > Game::find_attacking_figures(Figure* king)
-{
-    
-}
-std::vector<Figure* > Game::find_defending_figures()
-{
-
-}

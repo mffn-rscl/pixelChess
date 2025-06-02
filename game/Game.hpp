@@ -27,10 +27,11 @@ class Game
        
         sf::Vector2i c_mouse_clicked;
         std::vector<sf::Vector2i> c_current_figure_moves;
-        Board* c_board = new Board;
+        Board* c_board;
         
         //game behavior
         GameState c_state;
+        Action c_action;
         FigureColor c_color;
         bool c_is_light_move;
 
@@ -68,13 +69,18 @@ class Game
 
         //move exeptions
         Figure* find_king(); //find king
-        std::vector<Figure* > find_attacking_figures(Figure* king);
-        std::vector<Figure* > find_defending_figures();
+        std::vector<Figure* > find_attacking_figures(const Figure* king);
+        std::vector<sf::Vector2i> find_protective_moves(Figure* figure);
+        bool is_figure_protecting();
+
+        void normal_state_figure_picking();
+        void check_state_figure_picking(Figure* figure);
+        bool is_check_mate(std::vector<sf::Vector2i> protective_moves);
 
         //setters
         void set_define_figure(Figure* figure);
         void set_is_light_move(bool set);
         void set_game_state(GameState state);
-        void define_current_figure_moves(Figure* figure);
+        void set_action(Action action);
 
 };
