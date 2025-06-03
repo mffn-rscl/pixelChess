@@ -73,7 +73,7 @@ FigureType Board::get_figure_type(sf::Vector2i pos)
     return c_playing_field[pos.y][pos.x];
 }
 
-void Board::set_figure_type(sf::Vector2i pos, FigureType& type)
+void Board::set_figure_type(sf::Vector2i pos, FigureType type)
 {
     c_playing_field[pos.y][pos.x] = type; // swapped
     std::cout << "UPDATED PLAYING FIELD FIGURE IN POSITION(" << pos.x <<";"<< pos.y << ") : " << static_cast<int>(c_playing_field[pos.x][pos.y]) << std::endl;

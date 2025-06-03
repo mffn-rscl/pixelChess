@@ -11,13 +11,12 @@ enum class FigureType
     
 };
 
-
-
 enum class Action
 {
     ACTION_EXPECTED,
     FIGURE_PICKING,
-    FIGURE_PLACING
+    FIGURE_PLACING,
+    LOCKED_OUT
 };
 
 enum class GameState

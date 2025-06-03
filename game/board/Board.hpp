@@ -23,7 +23,7 @@ class Board
         void draw(sf::RenderWindow& window);
         
         FigureType get_figure_type(sf::Vector2i pos);
-        void set_figure_type(sf::Vector2i pos, FigureType& type);
+        void set_figure_type(sf::Vector2i pos, FigureType type);
         
         void display_playing_field();
 
