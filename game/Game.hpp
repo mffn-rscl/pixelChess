@@ -60,16 +60,16 @@ private:
     bool is_figure_protecting();
     void normal_state_figure_picking();
     void check_state_figure_picking(Figure* figure);
+    
     bool is_check_mate(std::vector<sf::Vector2i> protective_moves);
     bool castling();
     // void en_passant();
-    
-    // King-specific move handling methods
-    std::vector<sf::Vector2i> get_king_attack_positions(const Figure* king);
-    std::vector<sf::Vector2i> filter_king_moves(Figure* king, const std::vector<sf::Vector2i>& moves);
-    bool is_king_move_safe(Figure* king, const sf::Vector2i& target_pos);
-    std::vector<sf::Vector2i> get_king_protective_moves(Figure* king);
-    
+
+
+    std::vector<sf::Vector2i> king_moves_filter(std::vector<sf::Vector2i>& moves, Figure* king);
+
+
+
     // setters
     void set_define_figure(Figure* figure);
     void set_is_light_move(bool set);

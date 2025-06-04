@@ -36,15 +36,17 @@ std::vector<sf::Vector2i> Pawn::find_moves(Board& board)
 
     //beating figure
 
-    if (is_valid_position(current_x-1, next_move_y) && board.get_figure_type(sf::Vector2i(current_x-1, next_move_y)) != FigureType::EMPTY)
+    
+    if (is_valid_position(current_x-1 , next_move_y))
     {
         c_current_moves.push_back(sf::Vector2i(current_x-1, next_move_y));
     }
-    
-    if (is_valid_position(current_x+1, next_move_y) && board.get_figure_type(sf::Vector2i(current_x+1, next_move_y)) != FigureType::EMPTY)
+    if (is_valid_position(current_x+1 , next_move_y))
     {
         c_current_moves.push_back(sf::Vector2i(current_x+1, next_move_y));
     }
+    
+    
     
     
     return c_current_moves;
