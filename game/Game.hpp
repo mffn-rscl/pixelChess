@@ -82,7 +82,10 @@ private:
 
     /*MOVE METHODS*/
     bool is_current_move(std::vector<sf::Vector2i> possible_moves);
-    bool castling();
+
+    std::vector<sf::Vector2i> castling();
+    std::vector<sf::Vector2i> pawn_to_queen();
+
     std::vector<sf::Vector2i> moves_filter(std::vector<sf::Vector2i>& moves, Figure* picked_figure);
     std::vector<sf::Vector2i> king_moves_filter(std::vector<sf::Vector2i>& moves, Figure* king);
     // void en_passant();

@@ -545,6 +545,7 @@ bool Game::is_figure_protecting()
     
     std::vector<sf::Vector2i> safe_moves;
     std::vector<sf::Vector2i> all_moves = c_define_figure->find_moves(*c_board);
+    all_moves = moves_filter(all_moves, c_define_figure);
     
     for (const auto& move : all_moves) 
     {
@@ -687,6 +688,7 @@ std::vector<sf::Vector2i> Game::find_protective_moves(Figure* figure)
         sf::Vector2i king_pos = king->get_board_pos();
 
         auto figure_moves = figure->find_moves(*c_board);
+        figure_moves = moves_filter(figure_moves,figure);
         
         auto figures_attacked = find_attacking_figures(king);
 
@@ -788,4 +790,9 @@ bool Game::is_draw()
     }
     
     return false;
+}
+
+std::vector<sf::Vector2i> Game::castling()
+{
+
 }
