@@ -103,6 +103,6 @@ code became more readable
 - [x] fix hints rendering
 - [] makefile  
 
-![04.06.25]((screenshots/04.06.25.gif))
+![04.06.25]((screenshots/04-06-25.gif))
 ---
 
