@@ -99,8 +99,10 @@ code became more readable
 ## Tuesday - 04.06.25
 - [x] check/mate/draw logic
 - [] last cell for Pawns
-- [] castling
+- [x] castling
 - [x] fix hints rendering
 - [] makefile  
+
+![04.06.25]((screenshots/04.06.25.gif))
 ---
 

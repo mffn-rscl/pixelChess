@@ -48,6 +48,6 @@ FigureColor Figure::get_color() const { return c_color; }
 FigureType Figure::get_figure_type() const { return c_type; }
 sf::Vector2i Figure::get_board_pos() const { return c_board_position; }
 sf::Vector2f Figure::get_pixel_pos() const { return  c_pixel_position; } 
-
+bool Figure::get_is_moved() const{return c_is_moved;}
 
 

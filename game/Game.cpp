@@ -382,7 +382,7 @@ void Game::figure_placing()
     
     if(is_current_move(c_current_figure_moves)) 
     {
-           
+        castling_checker();
         figure_beated();
         set_figure_pos_in_playing_field(c_define_figure, c_mouse_clicked);
 
@@ -403,6 +403,7 @@ void Game::figure_placing()
 
     std::cout <<"GAME STATE: " << static_cast<int>(c_state) << std::endl;
 }
+
 void Game::normal_state_figure_picking()
 {
     c_current_figure_moves = c_define_figure->find_moves(*c_board);
@@ -432,7 +433,146 @@ void Game::normal_state_figure_picking()
     set_action(Action::FIGURE_PLACING);
 }
 
+void Game::castling_checker()
+{
+    if(c_define_figure->get_figure_type() != FigureType::KING) return;
+    sf::Vector2i king_pos = c_define_figure->get_board_pos();
+    Figure* rook = nullptr;
+    
+    if (abs(c_mouse_clicked.x - king_pos.x) == 2 && c_mouse_clicked.y == king_pos.y)
+    {
+        if(c_mouse_clicked.x > king_pos.x)
+        {
+            for(auto& figure : c_figures)
+            {
+                if (figure->get_figure_type() == FigureType::ROOK && 
+                    figure->get_color() == c_define_figure->get_color() &&
+                    figure->get_board_pos() == sf::Vector2i(7, king_pos.y))
+                {
+                    rook = figure;
+                    break;
+                }
+            } 
+            
+            if (rook != nullptr)
+            {
+                sf::Vector2i rook_new_pos = sf::Vector2i(c_mouse_clicked.x - 1, c_mouse_clicked.y);
+                
+                set_figure_pos_in_playing_field(rook, rook_new_pos);
+                rook->set_figure_position(rook_new_pos);
+                rook->set_is_moved(true);
+            }
+        }
+        else if(c_mouse_clicked.x < king_pos.x)
+        {
+            for(auto& figure : c_figures)
+            {
+                if (figure->get_figure_type() == FigureType::ROOK && 
+                    figure->get_color() == c_define_figure->get_color() &&
+                    figure->get_board_pos() == sf::Vector2i(0, king_pos.y))
+                {
+                    rook = figure;
+                    break;
+                }
+            } 
+            
+            if (rook != nullptr)
+            {
+                sf::Vector2i rook_new_pos = sf::Vector2i(c_mouse_clicked.x + 1, c_mouse_clicked.y);
+                
+                set_figure_pos_in_playing_field(rook, rook_new_pos);
+                rook->set_figure_position(rook_new_pos);
+                rook->set_is_moved(true);
+            }
+        }
+    }
+}
 
+
+void Game::castling(Figure* king, std::vector<sf::Vector2i>& filtered_moves)
+{
+    std::vector<sf::Vector2i> permissible_castling;
+    sf::Vector2i king_pos = king->get_board_pos();
+    sf::Vector2i right_cell_from_pos = sf::Vector2i(king_pos.x + 1, king_pos.y);
+    sf::Vector2i left_cell_from_pos = sf::Vector2i(king_pos.x - 1, king_pos.y);
+
+    for(auto& move : filtered_moves)
+    {
+        Figure* rook;
+        if (move == right_cell_from_pos)
+        {
+            for(auto& figure : c_figures)
+            {
+                if (figure->get_figure_type() == FigureType::ROOK && figure->get_color() == king->get_color())
+                {
+                    if (!figure->get_is_moved())
+                    {
+                        if (figure->get_board_pos() == sf::Vector2i(7,king_pos.y))
+                        {
+                            rook = figure;
+                            break;
+                        }
+                        
+                    }
+                    
+                }
+                rook = nullptr;
+            }            
+            sf::Vector2i castling_right = sf::Vector2i(king_pos.x + 2, king_pos.y);
+            if (c_board->get_figure_type(castling_right) == FigureType::EMPTY && rook !=nullptr)
+            {
+                c_board->set_figure_type(castling_right, king->get_figure_type());
+                c_board->set_figure_type(king_pos, FigureType::EMPTY);
+
+                std::vector<Figure* > attacked_figures = find_attacking_figures(king);
+                if (attacked_figures.empty())
+                {
+                    filtered_moves.push_back(castling_right);
+                }
+                c_board->set_figure_type(castling_right,FigureType::EMPTY);
+                c_board->set_figure_type(king_pos, king->get_figure_type());
+            }
+            
+            
+        }
+        else if(move == left_cell_from_pos)
+        {
+            for(auto& figure : c_figures)
+            {
+                if (figure->get_figure_type() == FigureType::ROOK && figure->get_color() == king->get_color())
+                {
+                    if (!figure->get_is_moved())
+                    {
+                        if (figure->get_board_pos() == sf::Vector2i(0,king_pos.y))
+                        {
+                            rook = figure;
+                            break;
+                        }
+                    }
+                    
+                }
+                rook = nullptr;
+            }            
+            sf::Vector2i castling_left = sf::Vector2i(king_pos.x - 2, king_pos.y);
+            if (c_board->get_figure_type(castling_left) == FigureType::EMPTY && rook !=nullptr)
+            {
+                c_board->set_figure_type(castling_left, king->get_figure_type());
+                c_board->set_figure_type(king_pos, FigureType::EMPTY);
+
+                std::vector<Figure* > attacked_figures = find_attacking_figures(king);
+                if (attacked_figures.empty())
+                {
+                    filtered_moves.push_back(castling_left);
+                }
+
+                c_board->set_figure_type(castling_left,FigureType::EMPTY);
+                c_board->set_figure_type(king_pos, king->get_figure_type());
+            }
+            
+        }
+           
+    }
+}
 
 std::vector<sf::Vector2i> Game::king_moves_filter(std::vector<sf::Vector2i>& moves, Figure* king)
 {
@@ -496,6 +636,11 @@ std::vector<sf::Vector2i> Game::king_moves_filter(std::vector<sf::Vector2i>& mov
             c_figures.insert(captured_it, captured_figure);
         }
     }
+    //castling
+    if (!king->get_is_moved() && c_state == GameState::NORMAL)
+    {
+        castling(king, filtered_moves);
+    }
     
     return filtered_moves;
 }
@@ -524,8 +669,6 @@ std::vector<Figure* > Game::find_attacking_figures(const Figure* king)
     }
     return attacking_figures;
 }
-
-
 
 bool Game::is_figure_protecting()
 {
@@ -792,7 +935,4 @@ bool Game::is_draw()
     return false;
 }
 
-std::vector<sf::Vector2i> Game::castling()
-{
 
-}

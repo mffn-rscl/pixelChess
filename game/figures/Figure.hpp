@@ -34,7 +34,9 @@ class Figure
         void set_is_moved(bool set);
         void set_figure_position(sf::Vector2i board_position);
         void set_current_moves(std::vector<sf::Vector2i> moves);
-                void draw(sf::RenderWindow& window);
+        void draw(sf::RenderWindow& window);
+        bool is_valid_position(int x, int y) const;
+
         virtual std::vector<sf::Vector2i> find_moves(Board& board) = 0;
         
         
@@ -44,8 +46,8 @@ class Figure
         FigureType get_figure_type() const;
         sf::Vector2i get_board_pos() const;
         sf::Vector2f get_pixel_pos() const;
+        bool get_is_moved() const;
         std::vector<sf::Vector2i> get_current_moves() const; 
-        bool is_valid_position(int x, int y) const;
         
 
 
