@@ -96,6 +96,7 @@ code became more readable
 
 ![31.05.25](screenshots/31-05-25.gif)
 
+
 ## Tuesday - 04.06.25
 - [x] check/mate/draw logic
 - [] last cell for Pawns
@@ -103,7 +104,8 @@ code became more readable
 - [x] fix hints rendering
 - [] makefile  
 
-![04.06.25]((screenshots/04-06-25.gif))
+
+![04.06.25](screenshots/04-06-25.gif)
 
 
 ---
