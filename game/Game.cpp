@@ -23,9 +23,18 @@ void Game::initialize_hints()
 {
     for(auto& hint_pos : c_current_figure_moves)
     {
-        Hint hint(HINT_PATH, CELL_TEXTURE_SIZE, hint_pos,START_FIGURE_POS); 
+        Hint* hint = new Hint(HINT_PATH, CELL_TEXTURE_SIZE, hint_pos,START_FIGURE_POS); 
+        hint->set_hint_position();
         c_hint.push_back(hint);
     }
+}
+
+void Game::clear_hints() {
+    for(auto& hint : c_hint)
+    {
+        delete hint;
+    }
+    c_hint.clear();
 }
 
 void Game::initialize_figures()
@@ -130,7 +139,7 @@ void Game::render()
 {
     for(auto& hint : c_hint)
     {
-        hint.draw(c_window);
+        hint->draw(c_window);
     }
     for(auto figure : c_figures)
     {
@@ -320,7 +329,7 @@ void Game::figure_picking()
 
 void Game::figure_placing()
 {
-    c_hint.clear();
+    clear_hints();
     
     if(is_current_move(c_current_figure_moves)) 
     {

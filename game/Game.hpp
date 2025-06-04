@@ -20,7 +20,7 @@ private:
     sf::RenderWindow c_window;
     // render elements
     std::vector<Figure *> c_figures;
-    std::vector<Hint> c_hint;
+    std::vector<Hint* > c_hint;
     // moves
     sf::Vector2i c_mouse_clicked;
     std::vector<sf::Vector2i> c_current_figure_moves;
@@ -52,6 +52,7 @@ private:
     void left_mouse_clicked(const sf::Event& event);
     void figure_picking();
     void figure_placing();
+    void clear_hints();
     
     // move exceptions
     Figure* find_king(); // find king
