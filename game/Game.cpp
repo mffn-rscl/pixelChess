@@ -7,6 +7,9 @@ Game::Game() : c_window(sf::VideoMode(1920, 1080), "Chess")
     set_is_light_move(true);
     set_game_state(GameState::NORMAL);
     set_action(Action::ACTION_EXPECTED);
+    c_lose = new Hint(LOSE_HINT_PATH, CELL_TEXTURE_SIZE ,START_FIGURE_POS); 
+    c_draw_l = new Hint(DRAW_HINT_PATH, CELL_TEXTURE_SIZE ,START_FIGURE_POS); 
+    c_draw_d = new Hint(DRAW_HINT_PATH, CELL_TEXTURE_SIZE ,START_FIGURE_POS); 
 }
 
 Game::~Game()
@@ -16,6 +19,10 @@ Game::~Game()
         delete figure;
     }
     delete c_board;
+    delete c_lose;
+    delete c_draw_d;
+    delete c_draw_l;
+
 }
 
 //initialization
@@ -23,13 +30,15 @@ void Game::initialize_hints()
 {
     for(auto& hint_pos : c_current_figure_moves)
     {
-        Hint* hint = new Hint(HINT_PATH, CELL_TEXTURE_SIZE, hint_pos,START_FIGURE_POS); 
+        Hint* hint = new Hint(HINT_PATH, CELL_TEXTURE_SIZE ,START_FIGURE_POS, hint_pos); 
         hint->set_hint_position();
         c_hint.push_back(hint);
     }
+   
 }
 
-void Game::clear_hints() {
+void Game::clear_hints() 
+{
     for(auto& hint : c_hint)
     {
         delete hint;
@@ -130,13 +139,44 @@ void Game::initialize_figures()
     dark_figure_q->set_figure_position(sf::Vector2i(3, 0));
     c_figures.push_back(dark_figure_q);
     
-
-
+  
 }
 
 //display
 void Game::render()
-{
+{   
+
+    if (is_draw())
+    {
+        for(auto& figure :c_figures)
+        {
+            if (figure->get_figure_type() == FigureType::KING)
+            {
+                
+               if (figure->get_color() == FigureColor::LIGHT)
+               {
+                    c_draw_l->set_hint_position(figure->get_board_pos());
+                    c_draw_l->draw(c_window);
+               }
+               else
+               {
+                    c_draw_d->set_hint_position(figure->get_board_pos());
+                    c_draw_d->draw(c_window);
+               }
+               
+            }
+            
+        }
+
+    }
+    else if (is_check_mate())
+    {
+        Figure* king = find_king();
+        c_lose->set_hint_position(king->get_board_pos());
+        c_lose->draw(c_window);
+
+    }
+    
     for(auto& hint : c_hint)
     {
         hint->draw(c_window);
@@ -145,7 +185,6 @@ void Game::render()
     {
         figure->draw(c_window);
     }
-   
 
 }
 
@@ -173,6 +212,9 @@ void Game::set_figure_pos_in_playing_field(const Figure* figure, sf::Vector2i ne
     c_board->display_playing_field();
     
 }
+
+
+
 
 void Game::run()
 {
@@ -251,10 +293,11 @@ void Game::handle_events()
             if (event.type == sf::Event::Closed) c_window.close();
             
         
-            if (event.type == sf::Event::MouseButtonPressed && (c_state != GameState::CHECKMATE || c_state != GameState::CHECKMATE))
+            if (event.type == sf::Event::MouseButtonPressed && !is_check_mate() && !is_draw())
             {
                 left_mouse_clicked(event);
             }
+         
         }
                
 }
@@ -262,7 +305,6 @@ void Game::handle_events()
 void Game::left_mouse_clicked(const sf::Event& event)
 {
     if(event.mouseButton.button != sf::Mouse::Left)return;
-    
     c_mouse_clicked = get_clicked_board_position(event.mouseButton.x,event.mouseButton.y);
 
     switch(c_action)
@@ -309,6 +351,13 @@ void Game::figure_picking()
                     
                     case GameState::CHECK:
                         check_state_figure_picking(figure);
+                        break;
+
+                    case GameState::CHECKMATE:
+                        return;
+
+                    case GameState::DRAW:
+                        return;
                         break;
                 }
                 initialize_hints();                            
@@ -383,7 +432,6 @@ void Game::normal_state_figure_picking()
     set_action(Action::FIGURE_PLACING);
 }
 
-/*----------------------FIX----------------------*/
 
 
 std::vector<sf::Vector2i> Game::king_moves_filter(std::vector<sf::Vector2i>& moves, Figure* king)
@@ -683,4 +731,61 @@ std::vector<sf::Vector2i> Game::find_protective_moves(Figure* figure)
     return protective_moves;
 }
 
-/*----------------------FIX----------------------*/
+bool Game::is_check_mate()
+{
+    if (c_state == GameState::CHECK || c_state == GameState::CHECKMATE )
+    {
+        for(auto& figure : c_figures)
+        {
+            if ((figure->get_color() == FigureColor::LIGHT && c_is_light_move ) || (figure->get_color() == FigureColor::DARK && !c_is_light_move ))
+            {
+                
+                auto figure_protective_moves = find_protective_moves(figure);
+                if (!figure_protective_moves.empty())
+                {
+                    return false;
+                }
+                
+            }
+            
+        }
+        
+        set_game_state(GameState::CHECKMATE);
+        std::cout << "Game state: CHECKMATE" << std::endl;
+        return true;
+    }
+    
+    
+    return false;    
+}
+
+bool Game::is_draw()
+{
+    if (c_state != GameState::CHECKMATE && c_state != GameState::CHECK)
+    {   
+        if (c_figures.size() == 2)
+        {
+            set_game_state(GameState::DRAW);
+            return true;
+        }
+    
+        for(auto& figure : c_figures)
+        {
+            if ((figure->get_color() == FigureColor::LIGHT && c_is_light_move ) || (figure->get_color() == FigureColor::DARK && !c_is_light_move ))
+            {
+                std::vector<sf::Vector2i> temp_moves = figure->find_moves(*c_board);
+                temp_moves = moves_filter(temp_moves, figure);
+                
+                if (!temp_moves.empty())
+                {
+                    return false; 
+                }
+            }
+        }
+        
+        set_game_state(GameState::DRAW);
+        return true;
+    }
+    
+    return false;
+}

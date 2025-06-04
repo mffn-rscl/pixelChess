@@ -55,14 +55,14 @@ g++ game/main.cpp game/board/Board.cpp game/figures/King/King.cpp game/figures/Q
 - [x] correct class "Figure"
 - [x] print Pawns
 
-![13.05.25 result](temp/screenshots/130525.png)
+![13.05.25 result](screenshots/130525.png)
 
 ## Thursday - 15.05.25
 - [] make makefile
 - [x] do interact with figures
 - [x] display another figures
 
-![15.05.25](temp/screenshots/150525.png)
+![15.05.25](screenshots/150525.png)
 
 ## Tuesday - 20.05.25
 - [x] bug fixing Game::run()
@@ -94,11 +94,10 @@ code became more readable
 - [x] get_possible_moves for each figure
 - [] fix hint render
 
-![31.05.25](temp/screenshots/31-05-25.gif)
+![31.05.25](screenshots/31-05-25.gif)
 
-## Tuesday - 03.06.25
+## Tuesday - 04.06.25
 - [x] check/mate/draw logic
-- [] en passant for Pawns
 - [] last cell for Pawns
 - [] castling
 - [x] fix hints rendering

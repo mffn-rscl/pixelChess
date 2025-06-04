@@ -3,9 +3,9 @@
 
 //board
 const std::string BOARD_TEXTURE_PATH = "textures/board/board.png";
-const std::string DARK_CELL_TEXTURE_PATH = "textures/board/dark.png";
-const std::string LIGHT_CELL_TEXTURE_PATH = "textures/board/light.png";
-const std::string HINT_PATH = "textures/hint.png";
+const std::string HINT_PATH = "textures/hints/hint.png";
+const std::string LOSE_HINT_PATH = "textures/hints/lose.png";
+const std::string DRAW_HINT_PATH = "textures/hints/draw.png";
 
 
 //light figures

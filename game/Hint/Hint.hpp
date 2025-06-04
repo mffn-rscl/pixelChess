@@ -12,8 +12,9 @@ class Hint
 
     public:
         
-        Hint(const std::string HINT_PATH, sf::Vector2f SIZE,sf::Vector2i position, sf::Vector2f START_FIGURE_POS);
+        Hint(const std::string HINT_PATH, sf::Vector2f SIZE, sf::Vector2f START_FIGURE_POS,sf::Vector2i position = sf::Vector2i(-1,-1));
         void draw(sf::RenderWindow& window);
         void set_hint_position();
+        void set_hint_position(sf::Vector2i pos);
 
 };

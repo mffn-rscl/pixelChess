@@ -1,9 +1,0 @@
-https://www.youtube.com/watch?v=WKs685H6uOQ&t=983s&ab_channel=TheCherno
-https://ravesli.com/urok-164-modifikatory-override-i-final-kovariantnyj-tip-vozvrata/
-https://ravesli.com/uroki-po-sfml/
-https://www.sfml-dev.org/documentation/2.6.0/
-https://en.sfml-dev.org/forums/index.php?topic=21069.0
-https://archive.org/details/mastering-sfml-game-development/page/n39/mode/2up
-https://www.sfml-dev.org/tutorials/3.0/window/events/
-https://en.sfml-dev.org/forums/index.php?topic=21084.0
-https://stackoverflow.com/questions/30372484/sfml-mouse-click-detection

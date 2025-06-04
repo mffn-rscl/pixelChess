@@ -17,21 +17,27 @@
 class Game
 {
 private:
+    /*RENDER*/
     sf::RenderWindow c_window;
-    // render elements
+
     std::vector<Figure *> c_figures;
     std::vector<Hint* > c_hint;
-    // moves
+   
+    /*MOVES*/
     sf::Vector2i c_mouse_clicked;
     std::vector<sf::Vector2i> c_current_figure_moves;
     Board* c_board;
-    // game behavior
+   
+    Hint* c_lose;
+    Hint* c_draw_l;
+    Hint* c_draw_d;
+    /*GAME BIHAVIOR*/
     GameState c_state;
     Action c_action;
     FigureColor c_color;
     bool c_is_light_move;
     Figure* c_define_figure = nullptr;
-    // mate/draw checker
+    
 
 public:
     Game();
@@ -39,41 +45,55 @@ public:
     void run();
 
 private:
+    /*INITIALIZATION*/
     void initialize_figures();
     void initialize_hints();
+
+    /*GETTERS*/
     sf::Vector2i get_clicked_board_position(float x, float y);
     sf::Vector2i get_mouse_clicked() const;
-    bool is_current_move(std::vector<sf::Vector2i> possible_moves);
-    void set_figure_pos_in_playing_field(const Figure* figure, sf::Vector2i new_position);
-    std::vector<sf::Vector2i> moves_filter(std::vector<sf::Vector2i>& moves, Figure* picked_figure);
-    void figure_beated();
-    void render();
-    void handle_events();
-    void left_mouse_clicked(const sf::Event& event);
-    void figure_picking();
-    void figure_placing();
-    void clear_hints();
-    
-    // move exceptions
-    Figure* find_king(); // find king
-    std::vector<Figure* > find_attacking_figures(const Figure* king);
-    std::vector<sf::Vector2i> find_protective_moves(Figure* figure);
-    bool is_figure_protecting();
-    void normal_state_figure_picking();
-    void check_state_figure_picking(Figure* figure);
-    
-    bool is_check_mate(std::vector<sf::Vector2i> protective_moves);
-    bool castling();
-    // void en_passant();
 
-
-    std::vector<sf::Vector2i> king_moves_filter(std::vector<sf::Vector2i>& moves, Figure* king);
-
-
-
-    // setters
+    /*SETTERS*/
     void set_define_figure(Figure* figure);
     void set_is_light_move(bool set);
     void set_game_state(GameState state);
     void set_action(Action action);
+    void set_figure_pos_in_playing_field(const Figure* figure, sf::Vector2i new_position);
+
+    /*RENDER*/
+    void clear_hints();
+    void figure_beated();
+    void render();
+
+
+
+    /* EVENTS METHODS */
+    void handle_events();
+    void left_mouse_clicked(const sf::Event& event);
+    void figure_picking();
+    void figure_placing();
+    
+    /*GAME STATE*/
+    void normal_state_figure_picking();
+    void check_state_figure_picking(Figure* figure);
+    bool is_check_mate();
+    bool is_draw();
+
+
+    /*MOVE METHODS*/
+    bool is_current_move(std::vector<sf::Vector2i> possible_moves);
+    bool castling();
+    std::vector<sf::Vector2i> moves_filter(std::vector<sf::Vector2i>& moves, Figure* picked_figure);
+    std::vector<sf::Vector2i> king_moves_filter(std::vector<sf::Vector2i>& moves, Figure* king);
+    // void en_passant();
+
+    
+    /*THE CHECK METHODS*/
+    Figure* find_king(); // find king
+    std::vector<Figure* > find_attacking_figures(const Figure* king);
+    std::vector<sf::Vector2i> find_protective_moves(Figure* figure);
+    bool is_figure_protecting();
+
+
+   
 };

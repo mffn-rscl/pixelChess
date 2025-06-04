@@ -34,7 +34,7 @@ class Figure
         void set_is_moved(bool set);
         void set_figure_position(sf::Vector2i board_position);
         void set_current_moves(std::vector<sf::Vector2i> moves);
-        void draw(sf::RenderWindow& window);
+                void draw(sf::RenderWindow& window);
         virtual std::vector<sf::Vector2i> find_moves(Board& board) = 0;
         
         
