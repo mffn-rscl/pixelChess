@@ -142,7 +142,6 @@ void Game::initialize_figures()
   
 }
 
-//display
 void Game::render()
 {   
 
@@ -212,8 +211,6 @@ void Game::set_figure_pos_in_playing_field(const Figure* figure, sf::Vector2i ne
     c_board->display_playing_field();
     
 }
-
-
 
 
 void Game::run()
@@ -784,6 +781,7 @@ std::vector<sf::Vector2i> Game::moves_filter(std::vector<sf::Vector2i>& moves, F
                     if(figure->get_color() != picked_figure->get_color())
                     {
                         filtered_moves.push_back(move);
+                        break;
                     }
                 }
                 

@@ -5,3 +5,4 @@ https://www.sfml-dev.org/documentation/2.6.0/
 https://en.sfml-dev.org/forums/index.php?topic=21069.0
 https://archive.org/details/mastering-sfml-game-development/page/n39/mode/2up
 https://ravesli.com/urok-59-klassy-enum/
+https://www.sfml-dev.org/tutorials/3.0/window/events/#sfwindowbasehandleevents
