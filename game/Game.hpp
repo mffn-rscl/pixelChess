@@ -87,7 +87,7 @@ private:
     void castling_checker();
 
 
-    std::vector<sf::Vector2i> pawn_to_queen();
+    void pawn_to_queen();
 
     std::vector<sf::Vector2i> moves_filter(std::vector<sf::Vector2i>& moves, Figure* picked_figure);
     std::vector<sf::Vector2i> king_moves_filter(std::vector<sf::Vector2i>& moves, Figure* king);

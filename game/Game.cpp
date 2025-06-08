@@ -187,7 +187,8 @@ void Game::render()
 
 }
 
-//setters
+//setters            /* code */
+
 void Game::set_is_light_move(bool set){ c_is_light_move = set; }
 
 void Game::set_game_state(GameState state){ c_state = state; }
@@ -373,18 +374,53 @@ void Game::figure_picking()
     }
 }
 
+void Game::pawn_to_queen()
+{
+    if (c_define_figure->get_figure_type() == FigureType::PAWN)
+    {
+        bool is_light = (c_define_figure->get_color() == FigureColor::LIGHT) ? 1 : 0;
+        int direction = (is_light) ? 0 : 7;
+        sf::Vector2i pawn_pos = c_define_figure->get_board_pos();
+        if (pawn_pos.y == direction)
+        {
+            for(auto figure = c_figures.begin(); figure!=c_figures.end(); figure++)
+            {
+                if ((*figure)->get_board_pos() == pawn_pos)
+                {
+                    //delete pavvn
+                    delete *figure;
+                    c_figures.erase(figure);
+
+                    //create nevv queen
+                    Queen* queen = new Queen((is_light) ? LIGHT_FIGURE_QUEEN_PATH : DARK_FIGURE_QUEEN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, FigureType::QUEEN, (is_light) ? FigureColor::LIGHT : FigureColor::DARK);
+                    queen->set_figure_position(pawn_pos);
+                    c_figures.push_back(queen);
+                    break;
+                }
+                
+            }
+        }
+                
+    }
+    return;
+}
+
 void Game::figure_placing()
 {
     clear_hints();
     
     if(is_current_move(c_current_figure_moves)) 
-    {
+    {   
+
+       
+        
         castling_checker();
         figure_beated();
         set_figure_pos_in_playing_field(c_define_figure, c_mouse_clicked);
 
         c_define_figure->set_figure_position(c_mouse_clicked);
         c_define_figure->set_is_moved(true);
+        pawn_to_queen();
         set_is_light_move(!c_is_light_move);
 
     }

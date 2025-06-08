@@ -107,6 +107,10 @@ code became more readable
 
 ![04.06.25](screenshots/04-06-25.gif)
 
+## Sunday - 08.06.25
+- [x] last cell for Pawns
+- [] makefile  
+- [] zvit
 
 ---
 
