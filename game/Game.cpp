@@ -387,11 +387,9 @@ void Game::pawn_to_queen()
             {
                 if ((*figure)->get_board_pos() == pawn_pos)
                 {
-                    //delete pavvn
                     delete *figure;
                     c_figures.erase(figure);
 
-                    //create nevv queen
                     Queen* queen = new Queen((is_light) ? LIGHT_FIGURE_QUEEN_PATH : DARK_FIGURE_QUEEN_PATH, CELL_TEXTURE_SIZE, START_FIGURE_POS, FigureType::QUEEN, (is_light) ? FigureColor::LIGHT : FigureColor::DARK);
                     queen->set_figure_position(pawn_pos);
                     c_figures.push_back(queen);

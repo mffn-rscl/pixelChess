@@ -4,9 +4,9 @@
 
 ```bash
 
-g++ game/main.cpp game/board/Board.cpp game/figures/King/King.cpp game/figures/Queen/Queen.cpp game/figures/Knight/Knight.cpp game/figures/Bishop/Bishop.cpp game/figures/Rook/Rook.cpp game/figures/Pawn/Pawn.cpp game/figures/Figure.cpp game/Hint/Hint.cpp game/Game.cpp -Igame -Igame/core -Igame/figures -Igame/figures/Pawn -Igame/figures/Bishop -Igame/figures/King -Igame/figures/Knight -Igame/figures/Queen -Igame/figures/Rook -Igame/board -Igame/Hint -o chess-app -lsfml-graphics -lsfml-window -lsfml-system
+g++ game/main.cpp game/board/Board.cpp game/figures/King/King.cpp game/figures/Queen/Queen.cpp game/figures/Knight/Knight.cpp game/figures/Bishop/Bishop.cpp game/figures/Rook/Rook.cpp game/figures/Pawn/Pawn.cpp game/figures/Figure.cpp game/Hint/Hint.cpp game/Game.cpp -Igame -Igame/core -Igame/figures -Igame/figures/Pawn -Igame/figures/Bishop -Igame/figures/King -Igame/figures/Knight -Igame/figures/Queen -Igame/figures/Rook -Igame/board -Igame/Hint -o chess -lsfml-graphics -lsfml-window -lsfml-system
 
-./chess-app
+./chess
 
 ```
 
@@ -110,7 +110,7 @@ code became more readable
 ## Sunday - 08.06.25
 - [x] last cell for Pawns
 - [] makefile  
-- [] zvit
+- [x] zvit
 
 ---
 
