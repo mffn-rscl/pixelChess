@@ -16,7 +16,7 @@ class Figure
         sf::Sprite c_figure_s;
 
         bool c_is_moved;
-
+    
         sf::Vector2i c_board_position; 
         sf::Vector2f c_pixel_position; 
         std::vector<sf::Vector2i> c_current_moves;

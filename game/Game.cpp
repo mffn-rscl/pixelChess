@@ -504,11 +504,9 @@ void Game::castling(Figure* king, std::vector<sf::Vector2i>& filtered_moves)
                 {
                     if (!figure->get_is_moved())
                     {
-                        if (figure->get_board_pos() == sf::Vector2i(7,king_pos.y))
-                        {
-                            rook = figure;
-                            break;
-                        }
+                       
+                        rook = figure;
+                        break;
                         
                     }
                     
@@ -540,11 +538,8 @@ void Game::castling(Figure* king, std::vector<sf::Vector2i>& filtered_moves)
                 {
                     if (!figure->get_is_moved())
                     {
-                        if (figure->get_board_pos() == sf::Vector2i(0,king_pos.y))
-                        {
-                            rook = figure;
-                            break;
-                        }
+                        rook = figure;
+                        break;
                     }
                     
                 }
@@ -594,7 +589,7 @@ std::vector<sf::Vector2i> Game::king_moves_filter(std::vector<sf::Vector2i>& mov
             continue;
         }
 
-        FigureType original_dest_type = c_board->get_figure_type(move);
+        FigureType temp = c_board->get_figure_type(move);
         FigureType original_king_type = c_board->get_figure_type(king_pos);
         
         Figure* captured_figure = nullptr;
@@ -625,7 +620,7 @@ std::vector<sf::Vector2i> Game::king_moves_filter(std::vector<sf::Vector2i>& mov
         }
 
         king->set_figure_position(original_king_pos);
-        c_board->set_figure_type(move, original_dest_type);
+        c_board->set_figure_type(move, temp);
         c_board->set_figure_type(king_pos, original_king_type);
         
         if (captured_figure != nullptr)
@@ -835,7 +830,7 @@ std::vector<sf::Vector2i> Game::find_protective_moves(Figure* figure)
 
         if (figures_attacked.size() > 1) return protective_moves; // double check can only be resolved by king
 
-        for(auto& figure_attacked : figures_attacked)
+        for(auto& figure_attacked :  figures_attacked)
         {
             std::vector<sf::Vector2i> figure_attacked_moves = figure_attacked->find_moves(*c_board);
 
@@ -850,7 +845,7 @@ std::vector<sf::Vector2i> Game::find_protective_moves(Figure* figure)
                 {
                     if (move == figure_attacked_move && figure_attacked_move != king_pos)
                     {
-                        FigureType original_dest_type = c_board->get_figure_type(move);
+                        FigureType temp = c_board->get_figure_type(move);
 
                         c_board->set_figure_type(move, figure->get_figure_type());
                         c_board->set_figure_type(figure->get_board_pos(), FigureType::EMPTY);
@@ -863,7 +858,7 @@ std::vector<sf::Vector2i> Game::find_protective_moves(Figure* figure)
                             protective_moves.push_back(move);
                         }
 
-                        c_board->set_figure_type(move, original_dest_type);
+                        c_board->set_figure_type(move, temp);
                         c_board->set_figure_type(figure->get_board_pos(), figure->get_figure_type());
                     }
                 }
@@ -876,7 +871,9 @@ std::vector<sf::Vector2i> Game::find_protective_moves(Figure* figure)
 
 bool Game::is_check_mate()
 {
-    if (c_state == GameState::CHECK || c_state == GameState::CHECKMATE )
+    if (c_state == GameState::CHECKMATE) return true;
+    
+    else if (c_state == GameState::CHECK)
     {
         for(auto& figure : c_figures)
         {
