@@ -187,7 +187,7 @@ void Game::render()
 
 }
 
-//setters            /* code */
+//setters./
 
 void Game::set_is_light_move(bool set){ c_is_light_move = set; }
 
@@ -948,8 +948,7 @@ bool Game::is_draw()
             if ((figure->get_color() == FigureColor::LIGHT && c_is_light_move ) || (figure->get_color() == FigureColor::DARK && !c_is_light_move ))
             {
                 std::vector<sf::Vector2i> temp_moves = figure->find_moves(*c_board);
-                temp_moves = moves_filter(temp_moves, figure);
-                
+                temp_moves = (figure->get_figure_type() == FigureType::KING) ? king_moves_filter(temp_moves, figure) : moves_filter(temp_moves, figure);
                 if (!temp_moves.empty())
                 {
                     return false; 
