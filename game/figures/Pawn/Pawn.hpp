@@ -6,7 +6,7 @@ class Pawn : public Figure
 {
     public:
         using Figure::Figure;
-        ~Pawn();
+        virtual ~Pawn();
         virtual std::vector<sf::Vector2i> find_moves(Board& board);
 
 };  
